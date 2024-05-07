@@ -20,11 +20,6 @@ namespace Orbital_V1._0
             }
             return false;
 
-
-        }
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -56,8 +51,6 @@ namespace Orbital_V1._0
                 startInfo.Arguments = args;
                 Process.Start(startInfo);
 
-
-                // MessageBox.Show(bot);
             }
             catch (Exception ex)
             {
@@ -106,11 +99,10 @@ namespace Orbital_V1._0
             //If Bot Not Selected
             if (comboBotSelection.SelectedIndex == -1)
             {
-
                 MessageBox.Show("Please select a Bot");
                 return;
-
             }
+
             //If No Processes were Found
             if (listBox_Processes.Items.Count == 0)
             {
@@ -124,72 +116,37 @@ namespace Orbital_V1._0
             if (comboBotSelection.SelectedIndex == 0 && listBox_Processes.Items.Count > 0)
             {
                 botSelection = " -b nexto";
-
-
             }
             if (comboBotSelection.SelectedIndex == 1 && listBox_Processes.Items.Count > 0)
             {
                 botSelection = " -b necto";
-
             }
             if (comboBotSelection.SelectedIndex == 2 && listBox_Processes.Items.Count > 0)
             {
                 botSelection = " -b element";
-
             }
             if (comboBotSelection.SelectedIndex == 3 && listBox_Processes.Items.Count > 0)
             {
                 botSelection = " -b seer";
-
             }
 
 
 
+            //if Process from listbox not selected, then return, else Start Bot
             int pid = listBox_Processes.SelectedIndex;
-            //MessageBox.Show(pid);
-
-            //if Process from listbox not selected 
             if(pid == -1)
             {
                 MessageBox.Show("Select a process.");
                 return;
             }
-            else //else process is selected
+            else 
             {
                 string processID = " -p " + listBox_Processes.SelectedItem.ToString();
                 processID = processID.ToLower(); // no idea what causes this to be uppercase.
-
-
-                //MessageBox.Show(processID)
-               // richTextBox1.Text = richTextBox1.Text + string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, processID);
-               // MessageBox.Show(string.Format("{0}{1}{2}{3}{4}[5}{6}{7}", botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, processID));
-              
-                
                 Inject(botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, processID);
             }
-            /*
-            //if 1 or more processes are found then loop inject
-            if (listBox_Processes.Items.Count > 1) //count starts at 0
-
-            {
-                foreach (var pid in listBox_Processes.Items)
-                {
-                    Inject(botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, " -p " + pid.ToString());
-                }
-            }
-
-            //else just inject once
-            else
-            {
-
-                string pid = " -p " + listBox_Processes.Items[0].ToString(); //index 0 is first in list
-                Inject(botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, pid);
-
-            }
-            */
 
         }
-
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -209,10 +166,6 @@ namespace Orbital_V1._0
                 MessageBox.Show(Convert.ToString(z));
             }
 
-
-
-            //  string target = "Https://github.com/MarlBurroW";
-            // System.Diagnostics.Process.Start("https://github.com/MarlBurroW"); // this doesnt work for some reason? 
         }
 
         private void TimerCheckInjected_Tick(object sender, EventArgs e) //Check if Injected every 10 seconds...
@@ -227,11 +180,6 @@ namespace Orbital_V1._0
                 LabelInjected.ForeColor = Color.Red;
                 LabelInjected.Text = "Not Running";
             }
-        }
-
-        private void checkBox_BotMiniMap_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -249,11 +197,6 @@ namespace Orbital_V1._0
             {
                 MessageBox.Show(Convert.ToString(z));
             }
-        }
-
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

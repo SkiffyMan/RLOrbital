@@ -89,7 +89,7 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Main";
             tabPage1.UseVisualStyleBackColor = true;
-            tabPage1.Click += tabPage1_Click;
+
             // 
             // richTextBox1
             // 
@@ -161,7 +161,7 @@
             checkBox_BotMiniMap.TabIndex = 8;
             checkBox_BotMiniMap.Text = "Bot MiniMap (CPU Intensive)";
             checkBox_BotMiniMap.UseVisualStyleBackColor = true;
-            checkBox_BotMiniMap.CheckedChanged += checkBox_BotMiniMap_CheckedChanged;
+
             // 
             // checkBox_Clock
             // 
@@ -263,7 +263,6 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Credits";
             tabPage2.UseVisualStyleBackColor = true;
-            tabPage2.Click += tabPage2_Click;
             // 
             // label6
             // 
