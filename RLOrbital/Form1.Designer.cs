@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            richTextBox1 = new RichTextBox();
             panel1 = new Panel();
             checkBox_SpeedFlip = new CheckBox();
             checkBox_Debugger = new CheckBox();
@@ -71,6 +72,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(richTextBox1);
             tabPage1.Controls.Add(panel1);
             tabPage1.Controls.Add(label4);
             tabPage1.Controls.Add(button2);
@@ -88,6 +90,14 @@
             tabPage1.Text = "Main";
             tabPage1.UseVisualStyleBackColor = true;
             tabPage1.Click += tabPage1_Click;
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(237, 343);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(100, 96);
+            richTextBox1.TabIndex = 15;
+            richTextBox1.Text = "";
             // 
             // panel1
             // 
@@ -178,7 +188,7 @@
             button2.Name = "button2";
             button2.Size = new Size(106, 23);
             button2.TabIndex = 9;
-            button2.Text = "Inject";
+            button2.Text = "Start Bot";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -205,11 +215,11 @@
             // 
             LabelInjected.AutoSize = true;
             LabelInjected.ForeColor = Color.Red;
-            LabelInjected.Location = new Point(224, 310);
+            LabelInjected.Location = new Point(219, 310);
             LabelInjected.Name = "LabelInjected";
-            LabelInjected.Size = new Size(72, 15);
+            LabelInjected.Size = new Size(75, 15);
             LabelInjected.TabIndex = 3;
-            LabelInjected.Text = "Not Injected";
+            LabelInjected.Text = "Not Running";
             // 
             // button1
             // 
@@ -316,9 +326,10 @@
             ClientSize = new Size(309, 353);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
             Name = "Form1";
             RightToLeft = RightToLeft.No;
-            Text = "Orbital V1.01";
+            Text = "Orbital V1.0.2";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
@@ -355,5 +366,6 @@
         private CheckBox checkBox_Clock;
         private Label label6;
         private LinkLabel linkLabel2;
+        private RichTextBox richTextBox1;
     }
 }

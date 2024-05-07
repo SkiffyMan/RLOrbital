@@ -144,6 +144,30 @@ namespace Orbital_V1._0
             }
 
 
+
+            int pid = listBox_Processes.SelectedIndex;
+            //MessageBox.Show(pid);
+
+            //if Process from listbox not selected 
+            if(pid == -1)
+            {
+                MessageBox.Show("Select a process.");
+                return;
+            }
+            else //else process is selected
+            {
+                string processID = " -p " + listBox_Processes.SelectedItem.ToString();
+                processID = processID.ToLower(); // no idea what causes this to be uppercase.
+
+
+                //MessageBox.Show(processID)
+               // richTextBox1.Text = richTextBox1.Text + string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, processID);
+               // MessageBox.Show(string.Format("{0}{1}{2}{3}{4}[5}{6}{7}", botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, processID));
+              
+                
+                Inject(botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, processID);
+            }
+            /*
             //if 1 or more processes are found then loop inject
             if (listBox_Processes.Items.Count > 1) //count starts at 0
 
@@ -162,7 +186,7 @@ namespace Orbital_V1._0
                 Inject(botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, pid);
 
             }
-
+            */
 
         }
 
@@ -196,12 +220,12 @@ namespace Orbital_V1._0
             if (CheckIfInjected() == true)
             {
                 LabelInjected.ForeColor = Color.Blue;
-                LabelInjected.Text = "Injected";
+                LabelInjected.Text = "Bot Running";
             }
             else
             {
                 LabelInjected.ForeColor = Color.Red;
-                LabelInjected.Text = "Not Injected";
+                LabelInjected.Text = "Not Running";
             }
         }
 
