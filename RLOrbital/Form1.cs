@@ -1,15 +1,24 @@
+using RLOrbital;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Orbital_V1._0
 {
     public partial class Form1 : Form
     {
+
+
+        //  private static Dictionary<string, MyProcess> _processes;
         public Form1()
         {
             InitializeComponent();
         }
+
+        //Process testProcess;
+
         private bool CheckIfInjected() //Check if bot is running and return false or true
         {
 
@@ -22,6 +31,10 @@ namespace Orbital_V1._0
 
         }
 
+        private void GetCurrentBotPID()
+        {
+
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             TimerCheckInjected.Start();
@@ -39,6 +52,25 @@ namespace Orbital_V1._0
             }
         }
 
+        private void InjectBakkesMod()
+        {
+            //bakkes mod folder is static so this should work universally for anyone with the added benefit of bakkes mod auto updating anyway
+
+            string userName = Environment.UserName; //need to get username to find bakkes mod folder
+            string bakkesModDLLPath = string.Format(@"C:\Users\{0}\AppData\Roaming\bakkesmod\bakkesmod\dll\bakkesmod.dll", userName);
+            string pid = listBox_Processes.SelectedItem.ToString();
+            uint processID = Convert.ToUInt32(pid);
+            DLLInjector D1 = new DLLInjector();
+            try
+            {
+                D1.injectDLL(processID, bakkesModDLLPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to Inject BakkesMod on RL Process: " + pid);
+            }
+        }
+
         static void Inject(string bot, string kickoff, string pid, string minimap, string monitoring, string debugger, string debugKeys, string clock)
         {
 
@@ -47,9 +79,10 @@ namespace Orbital_V1._0
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = @"Bot.exe";
                 string args = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", bot, kickoff, pid, minimap, monitoring, debugger, debugKeys, clock); //order of args dont matter
-                // startInfo.Arguments = @"--kickoff --minimap --monitoring -b nexto -p 18732";
+                //startInfo.Arguments = @"--kickoff --minimap --monitoring -b nexto -p 18732";
                 startInfo.Arguments = args;
                 Process.Start(startInfo);
+
 
             }
             catch (Exception ex)
@@ -110,7 +143,10 @@ namespace Orbital_V1._0
                 return;
             }
 
-
+            if (checkBox1_BakkesMod.Checked)
+            {
+                InjectBakkesMod();
+            }
 
             //Bot Selection Args | its important to have spaces so args pass through to the bot correctly
             if (comboBotSelection.SelectedIndex == 0 && listBox_Processes.Items.Count > 0)
@@ -134,12 +170,12 @@ namespace Orbital_V1._0
 
             //if Process from listbox not selected, then return, else Start Bot
             int pid = listBox_Processes.SelectedIndex;
-            if(pid == -1)
+            if (pid == -1)
             {
                 MessageBox.Show("Select a process.");
                 return;
             }
-            else 
+            else
             {
                 string processID = " -p " + listBox_Processes.SelectedItem.ToString();
                 processID = processID.ToLower(); // no idea what causes this to be uppercase.
@@ -170,6 +206,8 @@ namespace Orbital_V1._0
 
         private void TimerCheckInjected_Tick(object sender, EventArgs e) //Check if Injected every 10 seconds...
         {
+
+
             if (CheckIfInjected() == true)
             {
                 LabelInjected.ForeColor = Color.Blue;
@@ -180,6 +218,7 @@ namespace Orbital_V1._0
                 LabelInjected.ForeColor = Color.Red;
                 LabelInjected.Text = "Not Running";
             }
+
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -197,6 +236,19 @@ namespace Orbital_V1._0
             {
                 MessageBox.Show(Convert.ToString(z));
             }
+        }
+
+
+
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

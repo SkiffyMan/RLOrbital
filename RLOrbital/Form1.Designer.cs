@@ -31,20 +31,23 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            richTextBox1 = new RichTextBox();
+            button5 = new Button();
+            button4 = new Button();
+            textBox1 = new TextBox();
             panel1 = new Panel();
+            checkBox1_BakkesMod = new CheckBox();
             checkBox_SpeedFlip = new CheckBox();
             checkBox_Debugger = new CheckBox();
             checkBox_BotMonitor = new CheckBox();
             checkBox_DebugKeys = new CheckBox();
             checkBox_BotMiniMap = new CheckBox();
             checkBox_Clock = new CheckBox();
-            label4 = new Label();
+            button1 = new Button();
             button2 = new Button();
+            label4 = new Label();
+            LabelInjected = new Label();
             label3 = new Label();
             comboBotSelection = new ComboBox();
-            LabelInjected = new Label();
-            button1 = new Button();
             label1 = new Label();
             listBox_Processes = new ListBox();
             tabPage2 = new TabPage();
@@ -53,6 +56,7 @@
             label5 = new Label();
             linkLabel1 = new LinkLabel();
             label2 = new Label();
+            button3 = new Button();
             TimerCheckInjected = new System.Windows.Forms.Timer(components);
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -67,50 +71,79 @@
             tabControl1.Location = new Point(-1, -2);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(313, 415);
+            tabControl1.Size = new Size(385, 530);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(richTextBox1);
+            tabPage1.Controls.Add(button5);
+            tabPage1.Controls.Add(button4);
+            tabPage1.Controls.Add(textBox1);
             tabPage1.Controls.Add(panel1);
-            tabPage1.Controls.Add(label4);
+            tabPage1.Controls.Add(button1);
             tabPage1.Controls.Add(button2);
+            tabPage1.Controls.Add(label4);
+            tabPage1.Controls.Add(LabelInjected);
             tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(comboBotSelection);
-            tabPage1.Controls.Add(LabelInjected);
-            tabPage1.Controls.Add(button1);
             tabPage1.Controls.Add(label1);
             tabPage1.Controls.Add(listBox_Processes);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(305, 387);
+            tabPage1.Size = new Size(377, 502);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Main";
             tabPage1.UseVisualStyleBackColor = true;
-
             // 
-            // richTextBox1
+            // button5
             // 
-            richTextBox1.Location = new Point(237, 343);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(100, 96);
-            richTextBox1.TabIndex = 15;
-            richTextBox1.Text = "";
+            button5.Location = new Point(290, 472);
+            button5.Name = "button5";
+            button5.Size = new Size(75, 23);
+            button5.TabIndex = 18;
+            button5.Text = "Inject Bakkes Mod";
+            button5.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(203, 473);
+            button4.Name = "button4";
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 17;
+            button4.Text = "Kill";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(3, 473);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(192, 23);
+            textBox1.TabIndex = 16;
             // 
             // panel1
             // 
+            panel1.Controls.Add(checkBox1_BakkesMod);
             panel1.Controls.Add(checkBox_SpeedFlip);
             panel1.Controls.Add(checkBox_Debugger);
             panel1.Controls.Add(checkBox_BotMonitor);
             panel1.Controls.Add(checkBox_DebugKeys);
             panel1.Controls.Add(checkBox_BotMiniMap);
             panel1.Controls.Add(checkBox_Clock);
-            panel1.Location = new Point(9, 63);
+            panel1.Location = new Point(16, 67);
             panel1.Name = "panel1";
-            panel1.Size = new Size(285, 98);
+            panel1.Size = new Size(290, 128);
             panel1.TabIndex = 14;
+            // 
+            // checkBox1_BakkesMod
+            // 
+            checkBox1_BakkesMod.AutoSize = true;
+            checkBox1_BakkesMod.Location = new Point(3, 106);
+            checkBox1_BakkesMod.Name = "checkBox1_BakkesMod";
+            checkBox1_BakkesMod.Size = new Size(87, 19);
+            checkBox1_BakkesMod.TabIndex = 14;
+            checkBox1_BakkesMod.Text = "BakkesMod";
+            checkBox1_BakkesMod.UseVisualStyleBackColor = true;
             // 
             // checkBox_SpeedFlip
             // 
@@ -161,7 +194,6 @@
             checkBox_BotMiniMap.TabIndex = 8;
             checkBox_BotMiniMap.Text = "Bot MiniMap (CPU Intensive)";
             checkBox_BotMiniMap.UseVisualStyleBackColor = true;
-
             // 
             // checkBox_Clock
             // 
@@ -173,29 +205,50 @@
             checkBox_Clock.Text = "Clock";
             checkBox_Clock.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // button1
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(173, 310);
-            label4.Name = "label4";
-            label4.Size = new Size(45, 15);
-            label4.TabIndex = 10;
-            label4.Text = "Status: ";
+            button1.Location = new Point(95, 201);
+            button1.Name = "button1";
+            button1.Size = new Size(131, 24);
+            button1.TabIndex = 2;
+            button1.Text = "Find Processes";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(190, 169);
+            button2.Location = new Point(95, 346);
             button2.Name = "button2";
-            button2.Size = new Size(106, 23);
+            button2.Size = new Size(131, 23);
             button2.TabIndex = 9;
             button2.Text = "Start Bot";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(99, 373);
+            label4.Name = "label4";
+            label4.Size = new Size(45, 15);
+            label4.TabIndex = 10;
+            label4.Text = "Status: ";
+            label4.Click += label4_Click;
+            // 
+            // LabelInjected
+            // 
+            LabelInjected.AutoSize = true;
+            LabelInjected.ForeColor = Color.Red;
+            LabelInjected.Location = new Point(142, 373);
+            LabelInjected.Name = "LabelInjected";
+            LabelInjected.Size = new Size(75, 15);
+            LabelInjected.TabIndex = 3;
+            LabelInjected.Text = "Not Running";
+            // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(115, 9);
+            label3.Location = new Point(130, 12);
             label3.Name = "label3";
             label3.Size = new Size(59, 15);
             label3.TabIndex = 6;
@@ -206,35 +259,15 @@
             comboBotSelection.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBotSelection.FormattingEnabled = true;
             comboBotSelection.Items.AddRange(new object[] { "Nexto", "Necto", "Element", "Seer V4" });
-            comboBotSelection.Location = new Point(86, 27);
+            comboBotSelection.Location = new Point(95, 30);
             comboBotSelection.Name = "comboBotSelection";
-            comboBotSelection.Size = new Size(121, 23);
+            comboBotSelection.Size = new Size(131, 23);
             comboBotSelection.TabIndex = 5;
-            // 
-            // LabelInjected
-            // 
-            LabelInjected.AutoSize = true;
-            LabelInjected.ForeColor = Color.Red;
-            LabelInjected.Location = new Point(219, 310);
-            LabelInjected.Name = "LabelInjected";
-            LabelInjected.Size = new Size(75, 15);
-            LabelInjected.TabIndex = 3;
-            LabelInjected.Text = "Not Running";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(6, 167);
-            button1.Name = "button1";
-            button1.Size = new Size(106, 25);
-            button1.TabIndex = 2;
-            button1.Text = "Find Processes";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(6, 195);
+            label1.Location = new Point(52, 228);
             label1.Name = "label1";
             label1.Size = new Size(223, 15);
             label1.TabIndex = 1;
@@ -244,7 +277,7 @@
             // 
             listBox_Processes.FormattingEnabled = true;
             listBox_Processes.ItemHeight = 15;
-            listBox_Processes.Location = new Point(6, 213);
+            listBox_Processes.Location = new Point(19, 246);
             listBox_Processes.Name = "listBox_Processes";
             listBox_Processes.Size = new Size(290, 94);
             listBox_Processes.TabIndex = 0;
@@ -259,7 +292,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(305, 387);
+            tabPage2.Size = new Size(377, 502);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Credits";
             tabPage2.UseVisualStyleBackColor = true;
@@ -313,6 +346,16 @@
             label2.TabIndex = 0;
             label2.Text = "Marlburrow for RL Marlbot: ";
             // 
+            // button3
+            // 
+            button3.Location = new Point(408, 398);
+            button3.Name = "button3";
+            button3.Size = new Size(130, 23);
+            button3.TabIndex = 15;
+            button3.Text = "Stop Bot";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // TimerCheckInjected
             // 
             TimerCheckInjected.Interval = 10000;
@@ -322,13 +365,14 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(309, 353);
+            ClientSize = new Size(336, 419);
             Controls.Add(tabControl1);
+            Controls.Add(button3);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             MaximizeBox = false;
             Name = "Form1";
             RightToLeft = RightToLeft.No;
-            Text = "Orbital V1.0.2";
+            Text = "Orbital V1.0.3";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
@@ -353,7 +397,6 @@
         private CheckBox checkBox_SpeedFlip;
         private CheckBox checkBox_BotMiniMap;
         private CheckBox checkBox_BotMonitor;
-        private Button button2;
         private Label label4;
         private LinkLabel linkLabel1;
         private Label label2;
@@ -365,6 +408,11 @@
         private CheckBox checkBox_Clock;
         private Label label6;
         private LinkLabel linkLabel2;
-        private RichTextBox richTextBox1;
+        private Button button2;
+        private Button button3;
+        private TextBox textBox1;
+        private Button button4;
+        private Button button5;
+        private CheckBox checkBox1_BakkesMod;
     }
 }
