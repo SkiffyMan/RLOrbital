@@ -2,6 +2,7 @@ using RLOrbital;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -52,23 +53,38 @@ namespace Orbital_V1._0
             }
         }
 
-        private void InjectBakkesMod()
+        private bool InjectBakkesMod()
         {
             //bakkes mod folder is static so this should work universally for anyone with the added benefit of bakkes mod auto updating anyway
+            //need to get username to find bakkes mod folder
 
-            string userName = Environment.UserName; //need to get username to find bakkes mod folder
+            string userName = Environment.UserName; 
             string bakkesModDLLPath = string.Format(@"C:\Users\{0}\AppData\Roaming\bakkesmod\bakkesmod\dll\bakkesmod.dll", userName);
             string pid = listBox_Processes.SelectedItem.ToString();
             uint processID = Convert.ToUInt32(pid);
             DLLInjector D1 = new DLLInjector();
-            try
+
+
+            if (File.Exists(bakkesModDLLPath))
             {
-                D1.injectDLL(processID, bakkesModDLLPath);
+
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Failed to Inject BakkesMod on RL Process: " + pid);
+                MessageBox.Show("Failed to find BakkesMod Folder...");
+                return false; 
             }
+
+
+            if (D1.injectDLL(processID, bakkesModDLLPath) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         static void Inject(string bot, string kickoff, string pid, string minimap, string monitoring, string debugger, string debugKeys, string clock)
@@ -82,7 +98,6 @@ namespace Orbital_V1._0
                 //startInfo.Arguments = @"--kickoff --minimap --monitoring -b nexto -p 18732";
                 startInfo.Arguments = args;
                 Process.Start(startInfo);
-
 
             }
             catch (Exception ex)
@@ -109,7 +124,6 @@ namespace Orbital_V1._0
             if (checkBox_BotMiniMap.Checked)
             {
                 minimap = " --minimap";
-
             }
             if (checkBox_BotMonitor.Checked)
             {
@@ -142,13 +156,23 @@ namespace Orbital_V1._0
                 MessageBox.Show("No Processes to Inject to. Please check if Rocket League is open.");
                 return;
             }
-
-            if (checkBox1_BakkesMod.Checked)
+ 
+            if (checkBox1_BakkesMod.Checked && listBox_Processes.SelectedIndex != -1) //If process is selected
             {
-                InjectBakkesMod();
+
+                if(InjectBakkesMod() == true)
+                {
+                   
+                }
+                else
+                {
+                    MessageBox.Show("Failed to Inject DLL On process + " + listBox_Processes.SelectedItem.ToString());
+                }
+
             }
 
             //Bot Selection Args | its important to have spaces so args pass through to the bot correctly
+            //The && statements here are useless as we already check this//
             if (comboBotSelection.SelectedIndex == 0 && listBox_Processes.Items.Count > 0)
             {
                 botSelection = " -b nexto";
@@ -165,7 +189,6 @@ namespace Orbital_V1._0
             {
                 botSelection = " -b seer";
             }
-
 
 
             //if Process from listbox not selected, then return, else Start Bot
