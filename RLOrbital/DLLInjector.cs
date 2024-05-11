@@ -39,11 +39,7 @@ namespace RLOrbital
 
        public bool injectDLL(uint processToInject, string dllPath)
         {
-            //dllPath = dllPath + "bakkesmod.dll";
-            // dllPath = "bakkesmod.dll";
-            //string test = processToInject.ToString();
-            //MessageBox.Show(test + "\n" + dllPath);
-            
+            //if your reading this your cool af! :))
             IntPtr processHandle = OpenProcess(desiredAccess, 1, processToInject);
 
             if (processHandle == INTPTR_ZERO) return false;

@@ -31,6 +31,12 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            listBox_BotPid = new ListBox();
+            button_StopBot = new Button();
+            button7 = new Button();
+            textBox2 = new TextBox();
+            button6 = new Button();
+            richTextBox1 = new RichTextBox();
             button5 = new Button();
             button4 = new Button();
             textBox1 = new TextBox();
@@ -76,6 +82,12 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(listBox_BotPid);
+            tabPage1.Controls.Add(button_StopBot);
+            tabPage1.Controls.Add(button7);
+            tabPage1.Controls.Add(textBox2);
+            tabPage1.Controls.Add(button6);
+            tabPage1.Controls.Add(richTextBox1);
             tabPage1.Controls.Add(button5);
             tabPage1.Controls.Add(button4);
             tabPage1.Controls.Add(textBox1);
@@ -95,6 +107,60 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Main";
             tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Click += tabPage1_Click;
+            // 
+            // listBox_BotPid
+            // 
+            listBox_BotPid.FormattingEnabled = true;
+            listBox_BotPid.ItemHeight = 15;
+            listBox_BotPid.Items.AddRange(new object[] { "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" });
+            listBox_BotPid.Location = new Point(338, 276);
+            listBox_BotPid.Name = "listBox_BotPid";
+            listBox_BotPid.Size = new Size(120, 94);
+            listBox_BotPid.TabIndex = 24;
+            // 
+            // button_StopBot
+            // 
+            button_StopBot.Location = new Point(178, 347);
+            button_StopBot.Name = "button_StopBot";
+            button_StopBot.Size = new Size(131, 23);
+            button_StopBot.TabIndex = 23;
+            button_StopBot.Text = "Stop Bot";
+            button_StopBot.UseVisualStyleBackColor = true;
+            button_StopBot.Click += button_StopBot_Click;
+            // 
+            // button7
+            // 
+            button7.Location = new Point(51, 406);
+            button7.Name = "button7";
+            button7.Size = new Size(75, 23);
+            button7.TabIndex = 22;
+            button7.Text = "button7";
+            button7.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(137, 422);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(100, 23);
+            textBox2.TabIndex = 21;
+            // 
+            // button6
+            // 
+            button6.Location = new Point(306, 406);
+            button6.Name = "button6";
+            button6.Size = new Size(75, 23);
+            button6.TabIndex = 20;
+            button6.Text = "button6";
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(292, 445);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(147, 37);
+            richTextBox1.TabIndex = 19;
+            richTextBox1.Text = "";
             // 
             // button5
             // 
@@ -217,7 +283,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(95, 346);
+            button2.Location = new Point(19, 347);
             button2.Name = "button2";
             button2.Size = new Size(131, 23);
             button2.TabIndex = 9;
@@ -228,7 +294,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(99, 373);
+            label4.Location = new Point(189, 377);
             label4.Name = "label4";
             label4.Size = new Size(45, 15);
             label4.TabIndex = 10;
@@ -239,11 +305,12 @@
             // 
             LabelInjected.AutoSize = true;
             LabelInjected.ForeColor = Color.Red;
-            LabelInjected.Location = new Point(142, 373);
+            LabelInjected.Location = new Point(232, 377);
             LabelInjected.Name = "LabelInjected";
             LabelInjected.Size = new Size(75, 15);
             LabelInjected.TabIndex = 3;
             LabelInjected.Text = "Not Running";
+            LabelInjected.Click += LabelInjected_Click;
             // 
             // label3
             // 
@@ -372,7 +439,7 @@
             MaximizeBox = false;
             Name = "Form1";
             RightToLeft = RightToLeft.No;
-            Text = "Orbital V1.0.3";
+            Text = "Orbital V1.0.4";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
@@ -414,5 +481,11 @@
         private Button button4;
         private Button button5;
         private CheckBox checkBox1_BakkesMod;
+        private Button button7;
+        private TextBox textBox2;
+        private Button button6;
+        private RichTextBox richTextBox1;
+        private Button button_StopBot;
+        private ListBox listBox_BotPid;
     }
 }
