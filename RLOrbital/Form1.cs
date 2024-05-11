@@ -53,7 +53,7 @@ namespace Orbital_V1._0
                 string process = p.Id.ToString();
                 if (process == pid)
                 {
-                    MessageBox.Show(process);
+                    //MessageBox.Show(process);
                     return true;
                 }
             }
@@ -186,8 +186,17 @@ namespace Orbital_V1._0
             string CurrentBotPid = listBox_BotPid.Items[tempSelectedIndex].ToString();
             if (CurrentBotPid.Length > 2)
             {
-                MessageBox.Show("Bot already running on Rocket League Process....");
-                return;
+                if (CheckIfPIDIsRunning(CurrentBotPid, "bot") == true)
+                {
+                    MessageBox.Show("Bot already running on Rocket League Process....");
+                    return;
+                }
+                else
+                {
+                    listBox_BotPid.Items.RemoveAt(tempSelectedIndex);
+                    listBox_BotPid.Items.Insert(tempSelectedIndex, "1");
+                }
+
             }
 
 
@@ -417,7 +426,7 @@ namespace Orbital_V1._0
             }
             else
             {
-                MessageBox.Show("Bot not running on Rocket League Instance + " + listBox_Processes.SelectedItem.ToString());
+                MessageBox.Show("No bot is running on Rocket League Instance + " + listBox_Processes.SelectedItem.ToString());
             }
         }
 
