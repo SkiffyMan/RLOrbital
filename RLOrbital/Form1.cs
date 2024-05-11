@@ -183,20 +183,22 @@ namespace Orbital_V1._0
 
             ///Check if Bot is already running on Rocket League Instance
             int tempSelectedIndex = listBox_Processes.SelectedIndex;
-            string CurrentBotPid = listBox_BotPid.Items[tempSelectedIndex].ToString();
-            if (CurrentBotPid.Length > 2)
-            {
-                if (CheckIfPIDIsRunning(CurrentBotPid, "bot") == true)
+            if (tempSelectedIndex != -1)
+            { 
+                string CurrentBotPid = listBox_BotPid.Items[tempSelectedIndex].ToString();
+                if (CurrentBotPid.Length > 2)
                 {
-                    MessageBox.Show("Bot already running on Rocket League Process....");
-                    return;
+                    if (CheckIfPIDIsRunning(CurrentBotPid, "bot") == true)
+                    {
+                        MessageBox.Show("Bot already running on Rocket League Process....");
+                        return;
+                    }
+                    else
+                    {
+                        listBox_BotPid.Items.RemoveAt(tempSelectedIndex);
+                        listBox_BotPid.Items.Insert(tempSelectedIndex, "1");
+                    }
                 }
-                else
-                {
-                    listBox_BotPid.Items.RemoveAt(tempSelectedIndex);
-                    listBox_BotPid.Items.Insert(tempSelectedIndex, "1");
-                }
-
             }
 
 
