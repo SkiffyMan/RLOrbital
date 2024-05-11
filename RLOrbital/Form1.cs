@@ -33,7 +33,7 @@ namespace Orbital_V1._0
 
         }
 
-        private string GetCurrentBotPID() 
+        private string GetCurrentBotPID()
         {
             var processes = Process.GetProcessesByName("Bot");
             foreach (var p in processes)
@@ -78,23 +78,22 @@ namespace Orbital_V1._0
 
         private bool InjectBakkesMod()
         {
-            //bakkes mod folder is static so this should work universally for anyone with the added benefit of bakkes mod auto updating anyway
-            //need to get username to find bakkes mod folder
-
+            //BakkesMod Folder is static so this will work universally for any user.
+            //Find bakkesMod Folder so we can Inject the DLL.
             string userName = Environment.UserName;
             string bakkesModDLLPath = string.Format(@"C:\Users\{0}\AppData\Roaming\bakkesmod\bakkesmod\dll\bakkesmod.dll", userName);
             string pid = listBox_Processes.SelectedItem.ToString();
             uint processID = Convert.ToUInt32(pid);
             DLLInjector D1 = new DLLInjector();
 
-
+            //If BakkesMod Not installed or not found
             if (File.Exists(bakkesModDLLPath))
             {
 
             }
             else
             {
-                MessageBox.Show("Failed to find BakkesMod Folder...");
+                MessageBox.Show("Failed to find BakkesMod Folder... Make sure BakkesMod is installed");
                 return false;
             }
 
@@ -112,13 +111,12 @@ namespace Orbital_V1._0
 
         static void Inject(string bot, string kickoff, string pid, string minimap, string monitoring, string debugger, string debugKeys, string clock)
         {
-
+            //Start the exe of Marlbot with given arguments. The order of arguments does not matter.
             try
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = @"Bot.exe";
-                string args = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", bot, kickoff, pid, minimap, monitoring, debugger, debugKeys, clock); //order of args dont matter
-                //startInfo.Arguments = @"--kickoff --minimap --monitoring -b nexto -p 18732";
+                string args = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", bot, kickoff, pid, minimap, monitoring, debugger, debugKeys, clock);
                 startInfo.Arguments = args;
                 Process.Start(startInfo);
 
@@ -127,10 +125,11 @@ namespace Orbital_V1._0
             {
                 MessageBox.Show("Failed To Load Bot.");
             }
+
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            //this way if arg not selected, string is nothing and it will still pass through, easier than booleans and converting to string.
+            //Argument selection
             string botSelection = "";
             string kickoff = "";
             string minimap = "";
@@ -138,6 +137,7 @@ namespace Orbital_V1._0
             string clock = "";
             string debug_keys = "";
             string debugger = "";
+            int SelectedIndex = listBox_Processes.SelectedIndex;
 
             // Create Args //
             if (checkBox_SpeedFlip.Checked)
@@ -180,30 +180,52 @@ namespace Orbital_V1._0
                 return;
             }
 
+            //If Rocket League Process is not selected
+            if (SelectedIndex == -1)
+            {
+                MessageBox.Show("No process was selected.");
+                return;
+            }
 
-            ///Check if Bot is already running on Rocket League Instance
-            int tempSelectedIndex = listBox_Processes.SelectedIndex;
-            if (tempSelectedIndex != -1)
-            { 
-                string CurrentBotPid = listBox_BotPid.Items[tempSelectedIndex].ToString();
-                if (CurrentBotPid.Length > 2)
+
+            //Check if bot is already running for the Rocket League process selected
+            string CurrentBotPid = listBox_BotPid.Items[SelectedIndex].ToString();
+            if (CurrentBotPid.Length > 2)
+            {
+                if (CheckIfPIDIsRunning(CurrentBotPid, "bot") == true)
                 {
-                    if (CheckIfPIDIsRunning(CurrentBotPid, "bot") == true)
-                    {
-                        MessageBox.Show("Bot already running on Rocket League Process....");
-                        return;
-                    }
-                    else
-                    {
-                        listBox_BotPid.Items.RemoveAt(tempSelectedIndex);
-                        listBox_BotPid.Items.Insert(tempSelectedIndex, "1");
-                    }
+                    MessageBox.Show("Bot already running on Rocket League Process....");
+                    return;
+                }
+                else
+                {
+                    listBox_BotPid.Items.RemoveAt(SelectedIndex);
+                    listBox_BotPid.Items.Insert(SelectedIndex, "1");
                 }
             }
 
 
+            //Bot Selection Args//
+            if (comboBotSelection.SelectedIndex == 0)
+            {
+                botSelection = " -b nexto";
+            }
+            else if (comboBotSelection.SelectedIndex == 1)
+            {
+                botSelection = " -b necto";
+            }
+            else if (comboBotSelection.SelectedIndex == 2)
+            {
+                botSelection = " -b element";
+            }
+            else if (comboBotSelection.SelectedIndex == 3)
+            {
+                botSelection = " -b seer";
+            }
 
-            if (checkBox1_BakkesMod.Checked && listBox_Processes.SelectedIndex != -1) //If process is selected
+
+            //Inject BakkesMod
+            if (checkBox1_BakkesMod.Checked)
             {
 
                 if (InjectBakkesMod() == true)
@@ -217,75 +239,42 @@ namespace Orbital_V1._0
 
             }
 
-
-            //Bot Selection Args | its important to have spaces so args pass through to the bot correctly
-            //The && statements here are useless as we already check this//
-            if (comboBotSelection.SelectedIndex == 0 && listBox_Processes.Items.Count > 0)
-            {
-                botSelection = " -b nexto";
-            }
-            if (comboBotSelection.SelectedIndex == 1 && listBox_Processes.Items.Count > 0)
-            {
-                botSelection = " -b necto";
-            }
-            if (comboBotSelection.SelectedIndex == 2 && listBox_Processes.Items.Count > 0)
-            {
-                botSelection = " -b element";
-            }
-            if (comboBotSelection.SelectedIndex == 3 && listBox_Processes.Items.Count > 0)
-            {
-                botSelection = " -b seer";
-            }
+            string processID = " -p " + listBox_Processes.SelectedItem.ToString();
+            processID = processID.ToLower(); // no idea what causes this to be uppercase.
+            Inject(botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, processID);
 
 
-            //if Process from listbox not selected, then return, else Start Bot
-            int pid = listBox_Processes.SelectedIndex;
-            if (pid == -1)
+            //if your reading this you're a cool dude for real.
+            //I'm not a professional programmer -- If you want to improve the code do so. I make applications for myself, and if other people find benefit then thats all that matters.
+            //Using a listbox instead of public <list>  It's Silly, but I kept running into a errors, for now this works fine, and is perfectly functional. If its not broken don't fix it!
+
+
+
+            //This associates the Current running Bot process ID with the current Selected Rocket League instance. 
+            //Because Marlbot spawns childrens processes this is neccessary. We need the "master" process ID so we can kill the children processes. 
+            var processes = Process.GetProcessesByName("Bot");
+            foreach (var p in processes)
             {
-                MessageBox.Show("Select a process.");
-                return;
-            }
-            else
-            {
+                string BotPid = p.Id.ToString();
+                bool IsInList = listBox_BotPid.Items.Cast<string>().Any(x => x == BotPid);
 
-                string processID = " -p " + listBox_Processes.SelectedItem.ToString();
-                processID = processID.ToLower(); // no idea what causes this to be uppercase.
-                Inject(botSelection, kickoff, minimap, monitoring, clock, debugger, debug_keys, processID);
-
-
-                //if your reading this you're a cool dude for real.
-                //I'm not a professional programmer -- If you want to improve the code do so. I make applications for myself, and if other people find benefit then thats all that matters.
-                //Using a listbox instead of public <list>  It's Silly, but I kept running into a errors, for now this works fine, and is perfectly functional. If its not broken don't fix it!
-                //This associates the Current running Bot process ID with the current Rocket League instance. 
-                //Because Marlbot spawns childrens processes this is neccessary. We need the "master" process ID. This is why the stop Bot feature was challenging to make.
-                int SelectedIndex = listBox_Processes.SelectedIndex;
-                SelectedIndex = SelectedIndex + 1;
-                var processes = Process.GetProcessesByName("Bot");
-                foreach (var p in processes)
+                if (IsInList == true)
                 {
-                    string BotPid = p.Id.ToString();
-                    bool IsInList = listBox_BotPid.Items.Cast<string>().Any(x => x == BotPid);
 
-                    if (IsInList == true)
-                    {
+                }
+                else
+                {
+                    listBox_BotPid.Items.RemoveAt(SelectedIndex);
+                    listBox_BotPid.Items.Insert(SelectedIndex, BotPid);
 
-                    }
-                    else
-                    {
-                        listBox_BotPid.Items.RemoveAt(pid);
-                        listBox_BotPid.Items.Insert(pid, BotPid);
-
-                    }
                 }
             }
-
         }
+
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
-            //Opens Links to credit Creator
-
+            //Opens browser to github
             Process myProcess = new Process();
             try
             {
@@ -301,11 +290,11 @@ namespace Orbital_V1._0
 
         }
 
-        private void TimerCheckInjected_Tick(object sender, EventArgs e) //Check if Injected every 10 seconds...
+        private void TimerCheckInjected_Tick(object sender, EventArgs e)
         {
+            //Checks if any bots are running every 10 seconds
 
-
-            if (CheckIfInjected() == true)
+            if (CheckIfInjected() == true) //Check if any bot is running
             {
                 int BotCount = 0;
                 foreach (var listBoxItem in listBox_BotPid.Items)
@@ -341,7 +330,7 @@ namespace Orbital_V1._0
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            //Opens browser to github
             Process myProcess = new Process();
             try
             {
@@ -356,30 +345,10 @@ namespace Orbital_V1._0
             }
         }
 
-
-
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private bool KillCurrentBot(string pid)
         {
-            if (CheckIfInjected() == true)
-            {
 
-            }
-            else
-            {
-                return false;
-            }
-
+            //kill Master process and children.
             int SelectedIndex = listBox_Processes.SelectedIndex;
             string arg = string.Format("/f /t /pid {0}", pid); //force //kill children process //process id
             try
@@ -408,38 +377,39 @@ namespace Orbital_V1._0
 
         private void button_StopBot_Click(object sender, EventArgs e)
         {
+            int SelectedIndex = listBox_Processes.SelectedIndex;
 
-            //Complicated way of doing this but it works so I don't care for now.
-            if (CheckIfInjected() == true)
+            //If no process selected 
+            if(SelectedIndex == -1)
             {
-
-            }
-            else
-            {
-                MessageBox.Show("No bot running...");
+                MessageBox.Show("No Process selected...");
                 return;
             }
 
-            int SelectedIndex = listBox_Processes.SelectedIndex;
             string CurrentBotPid = listBox_BotPid.Items[SelectedIndex].ToString();
+            //Check if Bot that was running for selected rocket league instance is still running, if it is, then kill it.
             if (CurrentBotPid.Length > 2)
             {
-                KillCurrentBot(CurrentBotPid);
+
+                if (CheckIfPIDIsRunning(CurrentBotPid, "bot") == true)
+                {
+                    KillCurrentBot(CurrentBotPid);
+                }
+                else
+                {
+                    MessageBox.Show("No bot is currently running on this Rocket League Instance: PID = " + listBox_Processes.SelectedItem.ToString());
+                    listBox_BotPid.Items.RemoveAt(SelectedIndex);
+                    listBox_BotPid.Items.Insert(SelectedIndex, "1");
+                    return;
+                }
+
             }
             else
             {
-                MessageBox.Show("No bot is running on Rocket League Instance + " + listBox_Processes.SelectedItem.ToString());
+                MessageBox.Show("No bot is currently running on this Rocket League Instance: PID = " + listBox_Processes.SelectedItem.ToString());
             }
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
 
         }
 
-        private void LabelInjected_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

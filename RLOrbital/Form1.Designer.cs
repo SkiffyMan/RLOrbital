@@ -107,17 +107,17 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Main";
             tabPage1.UseVisualStyleBackColor = true;
-            tabPage1.Click += tabPage1_Click;
             // 
             // listBox_BotPid
             // 
             listBox_BotPid.FormattingEnabled = true;
             listBox_BotPid.ItemHeight = 15;
             listBox_BotPid.Items.AddRange(new object[] { "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" });
-            listBox_BotPid.Location = new Point(338, 276);
+            listBox_BotPid.Location = new Point(329, 406);
             listBox_BotPid.Name = "listBox_BotPid";
-            listBox_BotPid.Size = new Size(120, 94);
+            listBox_BotPid.Size = new Size(98, 79);
             listBox_BotPid.TabIndex = 24;
+
             // 
             // button_StopBot
             // 
@@ -299,7 +299,6 @@
             label4.Size = new Size(45, 15);
             label4.TabIndex = 10;
             label4.Text = "Status: ";
-            label4.Click += label4_Click;
             // 
             // LabelInjected
             // 
@@ -310,7 +309,6 @@
             LabelInjected.Size = new Size(75, 15);
             LabelInjected.TabIndex = 3;
             LabelInjected.Text = "Not Running";
-            LabelInjected.Click += LabelInjected_Click;
             // 
             // label3
             // 
@@ -421,7 +419,6 @@
             button3.TabIndex = 15;
             button3.Text = "Stop Bot";
             button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
             // 
             // TimerCheckInjected
             // 
