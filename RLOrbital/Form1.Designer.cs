@@ -56,6 +56,16 @@
             comboBotSelection = new ComboBox();
             label1 = new Label();
             listBox_Processes = new ListBox();
+            tabPage3 = new TabPage();
+            richTextBox3 = new RichTextBox();
+            button12 = new Button();
+            button11 = new Button();
+            listBox_Usernames = new ListBox();
+            button10 = new Button();
+            richTextBox2 = new RichTextBox();
+            label7 = new Label();
+            button8 = new Button();
+            textBox3 = new TextBox();
             tabPage2 = new TabPage();
             label6 = new Label();
             linkLabel2 = new LinkLabel();
@@ -64,15 +74,18 @@
             label2 = new Label();
             button3 = new Button();
             TimerCheckInjected = new System.Windows.Forms.Timer(components);
+            openFileDialog1 = new OpenFileDialog();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             panel1.SuspendLayout();
+            tabPage3.SuspendLayout();
             tabPage2.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Location = new Point(-1, -2);
             tabControl1.Name = "tabControl1";
@@ -117,7 +130,6 @@
             listBox_BotPid.Name = "listBox_BotPid";
             listBox_BotPid.Size = new Size(98, 79);
             listBox_BotPid.TabIndex = 24;
-
             // 
             // button_StopBot
             // 
@@ -347,6 +359,110 @@
             listBox_Processes.Size = new Size(290, 94);
             listBox_Processes.TabIndex = 0;
             // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(richTextBox3);
+            tabPage3.Controls.Add(button12);
+            tabPage3.Controls.Add(button11);
+            tabPage3.Controls.Add(listBox_Usernames);
+            tabPage3.Controls.Add(button10);
+            tabPage3.Controls.Add(richTextBox2);
+            tabPage3.Controls.Add(label7);
+            tabPage3.Controls.Add(button8);
+            tabPage3.Controls.Add(textBox3);
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(377, 502);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "Launcher";
+            tabPage3.UseVisualStyleBackColor = true;
+            tabPage3.Click += tabPage3_Click;
+            // 
+            // richTextBox3
+            // 
+            richTextBox3.Location = new Point(-4, 416);
+            richTextBox3.Name = "richTextBox3";
+            richTextBox3.ReadOnly = true;
+            richTextBox3.Size = new Size(326, 80);
+            richTextBox3.TabIndex = 9;
+            richTextBox3.Text = "";
+            // 
+            // button12
+            // 
+            button12.Location = new Point(107, 335);
+            button12.Name = "button12";
+            button12.Size = new Size(123, 23);
+            button12.TabIndex = 8;
+            button12.Text = "Launch";
+            button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
+            // 
+            // button11
+            // 
+            button11.Location = new Point(107, 364);
+            button11.Name = "button11";
+            button11.Size = new Size(123, 23);
+            button11.TabIndex = 7;
+            button11.Text = "Delete Account";
+            button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
+            // 
+            // listBox_Usernames
+            // 
+            listBox_Usernames.FormattingEnabled = true;
+            listBox_Usernames.ItemHeight = 15;
+            listBox_Usernames.Location = new Point(0, 50);
+            listBox_Usernames.Name = "listBox_Usernames";
+            listBox_Usernames.Size = new Size(330, 244);
+            listBox_Usernames.TabIndex = 6;
+            // 
+            // button10
+            // 
+            button10.Location = new Point(107, 306);
+            button10.Name = "button10";
+            button10.Size = new Size(123, 23);
+            button10.TabIndex = 5;
+            button10.Text = "Add Account";
+            button10.UseVisualStyleBackColor = true;
+            button10.Click += button10_Click;
+            // 
+            // richTextBox2
+            // 
+            richTextBox2.Location = new Point(-4, 398);
+            richTextBox2.Name = "richTextBox2";
+            richTextBox2.Size = new Size(332, 101);
+            richTextBox2.TabIndex = 4;
+            richTextBox2.Text = "";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(3, 3);
+            label7.Name = "label7";
+            label7.Size = new Size(135, 15);
+            label7.TabIndex = 2;
+            label7.Text = "Rocket League Directory";
+            // 
+            // button8
+            // 
+            button8.Location = new Point(294, 21);
+            button8.Name = "button8";
+            button8.Size = new Size(37, 23);
+            button8.TabIndex = 1;
+            button8.Text = "...";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(0, 21);
+            textBox3.Name = "textBox3";
+            textBox3.ReadOnly = true;
+            textBox3.Size = new Size(288, 23);
+            textBox3.TabIndex = 0;
+            textBox3.TextChanged += textBox3_TextChanged;
+            // 
             // tabPage2
             // 
             tabPage2.Controls.Add(label6);
@@ -425,6 +541,11 @@
             TimerCheckInjected.Interval = 10000;
             TimerCheckInjected.Tick += TimerCheckInjected_Tick;
             // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.FileOk += openFileDialog1_FileOk;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -436,12 +557,14 @@
             MaximizeBox = false;
             Name = "Form1";
             RightToLeft = RightToLeft.No;
-            Text = "Orbital V1.0.4";
+            Text = "Orbital V1.0.5";
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             ResumeLayout(false);
@@ -484,5 +607,16 @@
         private RichTextBox richTextBox1;
         private Button button_StopBot;
         private ListBox listBox_BotPid;
+        private TabPage tabPage3;
+        private Button button8;
+        private TextBox textBox3;
+        private OpenFileDialog openFileDialog1;
+        private Label label7;
+        private RichTextBox richTextBox2;
+        private Button button10;
+        private Button button12;
+        private Button button11;
+        private ListBox listBox_Usernames;
+        private RichTextBox richTextBox3;
     }
 }

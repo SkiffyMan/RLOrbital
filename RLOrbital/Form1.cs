@@ -1,4 +1,5 @@
 using RLOrbital;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -6,6 +7,9 @@ using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
+using static System.Windows.Forms.LinkLabel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Orbital_V1._0
 {
@@ -87,7 +91,7 @@ namespace Orbital_V1._0
             DLLInjector D1 = new DLLInjector();
 
             //If BakkesMod Not installed or not found
-            if (File.Exists(bakkesModDLLPath))
+            if (System.IO.File.Exists(bakkesModDLLPath))
             {
 
             }
@@ -380,7 +384,7 @@ namespace Orbital_V1._0
             int SelectedIndex = listBox_Processes.SelectedIndex;
 
             //If no process selected 
-            if(SelectedIndex == -1)
+            if (SelectedIndex == -1)
             {
                 MessageBox.Show("No Process selected...");
                 return;
@@ -411,5 +415,255 @@ namespace Orbital_V1._0
 
         }
 
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+        }
+
+        private string GetUserAccount()
+        {
+            string userName = Environment.UserName;
+            string LegendaryUserDirectory = string.Format("C:\\Users\\{0}\\.config\\legendary\\user.json", userName);
+            string text = System.IO.File.ReadAllText(LegendaryUserDirectory);
+            Regex pattern = new Regex("\"displayName\": \"(.*)\"");
+            var match = pattern.Match(text);
+            if (match.Success)
+            {
+                string _username = match.Groups[1].Value.ToString();   
+                return _username;
+            }
+            return "";
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            string line;
+            string FullErrorLine = "";
+            // Start the child process.
+            Process p = new Process();
+            // Redirect the output stream of the child process.
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.FileName = "Legendary.exe";
+            p.StartInfo.Arguments = "list";
+            p.Start();
+            StreamReader myStreamReader = p.StandardError;
+
+            while ((line = myStreamReader.ReadLine()) != null)
+            {
+                FullErrorLine = FullErrorLine + line;
+            }
+
+            if (FullErrorLine.Contains("No saved credentials"))
+            {
+                MessageBox.Show("No Authenthicated accounts!");
+            }
+            p.WaitForExit();
+
+
+            /*
+            while (!p.HasExited)
+            {
+                string test = test + 
+                q += [process].StandardOutput.ReadToEnd();
+            }
+            */
+
+
+
+            // Read the standard error of net.exe and write it on to console.
+            //Console.WriteLine(myStreamReader.ReadLine());
+            //MessageBox.Show(myStreamReader.ReadLine());
+
+            // string output = p.StandardOutput.ReadToEnd();
+            // MessageBox.Show(output);
+            // richTextBox2.Text = FullErrorLine;
+            // p.Kill();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            listBox_Usernames.Items.Clear();
+            string line;
+            string FullErrorLine = "";
+            // Start the child process.
+            Process p = new Process();
+            // Redirect the output stream of the child process.
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.FileName = "Legendary.exe";
+            p.StartInfo.Arguments = "auth";
+            p.Start();
+            StreamReader myStreamReader = p.StandardError;
+
+            while ((line = myStreamReader.ReadLine()) != null)
+            {
+                FullErrorLine = FullErrorLine + line;
+            }
+
+            if (FullErrorLine.Contains("Max retries exceeded with url"))
+            {
+                MessageBox.Show("API Rate Limited... Try again later");
+                return;
+            }
+            if (FullErrorLine.Contains("switch to a different account"))
+            {
+                string _username = GetUserAccount();
+                listBox_Usernames.Items.Add(_username);
+                MessageBox.Show(string.Format("{0} Account is Authed. Ready To Launch.", _username));
+                return;
+            }
+            p.WaitForExit();
+            string username = GetUserAccount();
+            listBox_Usernames.Items.Add(username);
+            MessageBox.Show(string.Format("{0} Account is Authed. Ready To Launch.", username));
+            //MessageBox.Show("Success!");
+
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            string line;
+            string FullErrorLine = "";
+            // Start the child process.
+            Process p = new Process();
+            // Redirect the output stream of the child process.
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.FileName = "Legendary.exe";
+            p.StartInfo.Arguments = "launch sugar --skip-version-check";
+            p.Start();
+            StreamReader myStreamReader = p.StandardError;
+
+            while ((line = myStreamReader.ReadLine()) != null)
+            {
+                FullErrorLine = FullErrorLine + line;
+            }
+            if(FullErrorLine.Contains("No saved credentials"))
+            {
+                MessageBox.Show("No accounts are added. Please add an account");
+            }
+           // richTextBox3.Text = FullErrorLine;
+            p.WaitForExit();
+        }
+
+
+        private bool ImportGame()
+        {
+            string line;
+            string FullErrorLine = "";
+            string directory = System.IO.File.ReadAllText("rl.txt");
+
+            // Start the child process.
+            Process p = new Process();
+            // Redirect the output stream of the child process.
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.FileName = "Legendary.exe";
+            string arguments = string.Format("import Sugar {0}", directory);
+            p.StartInfo.Arguments = arguments;
+            p.Start();
+            StreamReader myStreamReader = p.StandardError;
+
+            while ((line = myStreamReader.ReadLine()) != null)
+            {
+                FullErrorLine = FullErrorLine + line;
+            }
+
+            if (FullErrorLine.Contains("Game is already installed"))
+            {
+                MessageBox.Show("Game Ready...");   
+            }
+            else
+            {
+                MessageBox.Show("Succesfully Imported Rocket League...");
+            }
+            p.WaitForExit();
+
+
+            return true;
+
+        }
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (System.IO.File.Exists("rl.txt") && new FileInfo("rl.txt").Length != 0)
+            {
+                DialogResult response = MessageBox.Show("Would you like to use previously found Rocket League Directory",
+                                      "Directory Already Found", MessageBoxButtons.YesNo);
+                if (response == DialogResult.Yes)
+                {
+                    string directory = System.IO.File.ReadAllText("rl.txt");
+                    textBox3.Text = directory;
+                    ImportGame();
+                    return;
+                }
+            }
+
+            string folderPath = "";
+            OpenFileDialog folderBrowser = new OpenFileDialog();
+            folderBrowser.ValidateNames = false;
+            folderBrowser.CheckFileExists = false;
+            folderBrowser.CheckPathExists = true;
+
+
+            // Always default to Folder Selection.
+            folderBrowser.FileName = "Folder Selection.";
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                folderPath = Path.GetDirectoryName(folderBrowser.FileName);
+                textBox3.Text = folderPath;
+            }
+            if (System.IO.File.Exists("rl.txt"))
+            {
+                System.IO.File.WriteAllText(@"rl.txt", "");
+                System.IO.File.WriteAllText("rl.txt", folderPath);
+            }
+            else
+            {
+                System.IO.File.WriteAllText("rl.txt", folderPath);
+            }
+            ImportGame();
+        }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            string line;
+            string FullErrorLine = "";
+            Process p = new Process();
+
+
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.FileName = "Legendary.exe";
+            string arguments = "auth --delete";
+            p.StartInfo.Arguments = arguments;
+            p.Start();
+            StreamReader myStreamReader = p.StandardError;
+
+            while ((line = myStreamReader.ReadLine()) != null)
+            {
+                FullErrorLine = FullErrorLine + line;
+            }
+
+            if (FullErrorLine.Contains("User data deleted"))
+            {
+                listBox_Usernames.Items.Clear();
+                MessageBox.Show("User deleted succesfully..."); 
+            }
+            p.WaitForExit();
+        }
     }
 }
