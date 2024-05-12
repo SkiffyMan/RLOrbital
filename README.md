@@ -19,7 +19,8 @@ Press start bot
 step 5: 
 Press F1 in game.
 
-If you need multiple Instances there is a launcher included that allows for one extra instance. In this case, launch your main instance natively on your PC first before using the Integrated Launcher. 
+If you need multiple Instances there is a launcher included that allows for this. In this case, launch your main instance natively on your PC first before using the Integrated Launcher. 
+For more than 1 instance, press add account, and after you have launched, press delete. Repeat Until you have all the Rocket League processes that you want.
 
 
 [!] I have very little time to allocate to this project, hence the obviously rushed code and basic GUI. This is basically a Proof of Concept and perhaps inspiration for people to make something more advanced. [!]
