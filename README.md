@@ -1,6 +1,4 @@
-Orbital is a GUI for MarlBot. All it does is pass arguments through to marlbot in a GUI Form.
-All Credits to MarlBurrow for the bot.
-
+Orbital is a GUI for MarlBot. This was made as an all-in-one tool to launch and manage multiple instances of MarlBot in a easy to use and time efficient way.
 
 ![yes2](https://github.com/SkiffyMan/RLOrbital/assets/169090800/0509303d-93ee-466e-bf1a-70f2b9e63d6e)
 
@@ -26,4 +24,11 @@ Press F1 in game.
 
 [!] I have very little time to allocate to this project, hence the obviously rushed code and basic GUI. This is basically a Proof of Concept and perhaps inspiration for people to make something more advanced. [!]
 
+[!] Credits [!]
 
+Credits to MarlBurrow for Marlbot
+https://github.com/MarlBurroW
+
+
+Credits to Derror for Legendary Launcher
+[https://github.com/derrod/legendary](https://github.com/derrod)
