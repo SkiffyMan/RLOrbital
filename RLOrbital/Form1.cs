@@ -25,6 +25,21 @@ namespace Orbital_V1._0
 
         //Process testProcess;
 
+        private void OpenBrowser(string link)
+        {
+            Process myProcess = new Process();
+            try
+            {
+                myProcess.StartInfo.UseShellExecute = true;
+                myProcess.StartInfo.FileName = link;
+                myProcess.Start();
+            }
+            catch (Exception z)
+            {
+                MessageBox.Show(Convert.ToString(z));
+            }
+        }
+
         private bool CheckIfInjected() //Check if bot is running and return false or true
         {
 
@@ -278,19 +293,8 @@ namespace Orbital_V1._0
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //Opens browser to github
-            Process myProcess = new Process();
-            try
-            {
-                // true is the default, but it is important not to set it to false
-                myProcess.StartInfo.UseShellExecute = true;
-                myProcess.StartInfo.FileName = "Https://github.com/MarlBurroW";
-                myProcess.Start();
-            }
-            catch (Exception z)
-            {
-                MessageBox.Show(Convert.ToString(z));
-            }
+            OpenBrowser("https://github.com/MarlBurroW");
+           
 
         }
 
@@ -333,20 +337,10 @@ namespace Orbital_V1._0
         }
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+
         {
-            //Opens browser to github
-            Process myProcess = new Process();
-            try
-            {
-                // true is the default, but it is important not to set it to false
-                myProcess.StartInfo.UseShellExecute = true;
-                myProcess.StartInfo.FileName = "https://github.com/SkiffyMan";
-                myProcess.Start();
-            }
-            catch (Exception z)
-            {
-                MessageBox.Show(Convert.ToString(z));
-            }
+            OpenBrowser("https://github.com/SkiffyMan");
+              
         }
 
         private bool KillCurrentBot(string pid)
@@ -419,6 +413,26 @@ namespace Orbital_V1._0
         {
         }
 
+        private string Legendary(string args)
+        {
+            string line;
+            string FullErrorLine = "";
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.FileName = "Legendary.exe";
+            p.StartInfo.Arguments = args;
+            p.Start();
+            StreamReader myStreamReader = p.StandardError;
+
+            while ((line = myStreamReader.ReadLine()) != null)
+            {
+                FullErrorLine = FullErrorLine + line;
+            }
+            p.WaitForExit();
+            return FullErrorLine;
+        }
         private string GetUserAccount()
         {
             string userName = Environment.UserName;
@@ -428,161 +442,75 @@ namespace Orbital_V1._0
             var match = pattern.Match(text);
             if (match.Success)
             {
-                string _username = match.Groups[1].Value.ToString();   
+                string _username = match.Groups[1].Value.ToString();
                 return _username;
             }
             return "";
         }
         private void button9_Click(object sender, EventArgs e)
         {
-            string line;
-            string FullErrorLine = "";
-            // Start the child process.
-            Process p = new Process();
-            // Redirect the output stream of the child process.
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.FileName = "Legendary.exe";
-            p.StartInfo.Arguments = "list";
-            p.Start();
-            StreamReader myStreamReader = p.StandardError;
 
-            while ((line = myStreamReader.ReadLine()) != null)
-            {
-                FullErrorLine = FullErrorLine + line;
-            }
-
-            if (FullErrorLine.Contains("No saved credentials"))
+            string outputSTD = Legendary("list");
+            if(outputSTD.Contains("No saved credentials"))
             {
                 MessageBox.Show("No Authenthicated accounts!");
             }
-            p.WaitForExit();
 
-
-            /*
-            while (!p.HasExited)
-            {
-                string test = test + 
-                q += [process].StandardOutput.ReadToEnd();
-            }
-            */
-
-
-
-            // Read the standard error of net.exe and write it on to console.
-            //Console.WriteLine(myStreamReader.ReadLine());
-            //MessageBox.Show(myStreamReader.ReadLine());
-
-            // string output = p.StandardOutput.ReadToEnd();
-            // MessageBox.Show(output);
-            // richTextBox2.Text = FullErrorLine;
-            // p.Kill();
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
             listBox_Usernames.Items.Clear();
-            string line;
-            string FullErrorLine = "";
-            // Start the child process.
-            Process p = new Process();
-            // Redirect the output stream of the child process.
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.FileName = "Legendary.exe";
-            p.StartInfo.Arguments = "auth";
-            p.Start();
-            StreamReader myStreamReader = p.StandardError;
 
-            while ((line = myStreamReader.ReadLine()) != null)
-            {
-                FullErrorLine = FullErrorLine + line;
-            }
+            string outputSTD = Legendary("auth");
 
-            if (FullErrorLine.Contains("Max retries exceeded with url"))
+            if (outputSTD.Contains("Max retries exceeded with url"))
             {
                 MessageBox.Show("API Rate Limited... Try again later");
                 return;
             }
-            if (FullErrorLine.Contains("switch to a different account"))
+            if (outputSTD.Contains("switch to a different account"))
             {
                 string _username = GetUserAccount();
                 listBox_Usernames.Items.Add(_username);
                 MessageBox.Show(string.Format("{0} Account is Authed. Ready To Launch.", _username));
                 return;
             }
-            p.WaitForExit();
+
             string username = GetUserAccount();
             listBox_Usernames.Items.Add(username);
             MessageBox.Show(string.Format("{0} Account is Authed. Ready To Launch.", username));
-            //MessageBox.Show("Success!");
 
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
-            string line;
-            string FullErrorLine = "";
-            // Start the child process.
-            Process p = new Process();
-            // Redirect the output stream of the child process.
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.FileName = "Legendary.exe";
-            p.StartInfo.Arguments = "launch sugar --skip-version-check";
-            p.Start();
-            StreamReader myStreamReader = p.StandardError;
+            string outputSTD = Legendary("launch sugar --skip-version-check");
 
-            while ((line = myStreamReader.ReadLine()) != null)
-            {
-                FullErrorLine = FullErrorLine + line;
-            }
-            if(FullErrorLine.Contains("No saved credentials"))
+            if (outputSTD.Contains("No saved credentials"))
             {
                 MessageBox.Show("No accounts are added. Please add an account");
             }
-           // richTextBox3.Text = FullErrorLine;
-            p.WaitForExit();
+            else
+            {
+                MessageBox.Show(string.Format("Launching Rocket League for account: {0}", GetUserAccount()) +"\n" +"If you'd like to start another instance with another account. Press Delete Account, and then Add Account, and then launch.");
+            }
         }
-
 
         private bool ImportGame()
         {
-            string line;
-            string FullErrorLine = "";
             string directory = System.IO.File.ReadAllText("rl.txt");
+            string outputSTD = Legendary(string.Format("import Sugar {0}", directory));
 
-            // Start the child process.
-            Process p = new Process();
-            // Redirect the output stream of the child process.
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.FileName = "Legendary.exe";
-            string arguments = string.Format("import Sugar {0}", directory);
-            p.StartInfo.Arguments = arguments;
-            p.Start();
-            StreamReader myStreamReader = p.StandardError;
 
-            while ((line = myStreamReader.ReadLine()) != null)
+            if (outputSTD.Contains("Game is already installed"))
             {
-                FullErrorLine = FullErrorLine + line;
-            }
-
-            if (FullErrorLine.Contains("Game is already installed"))
-            {
-                MessageBox.Show("Game Ready...");   
+                MessageBox.Show("Game Ready...");
             }
             else
             {
                 MessageBox.Show("Succesfully Imported Rocket League...");
             }
-            p.WaitForExit();
-
-
             return true;
 
         }
@@ -639,31 +567,30 @@ namespace Orbital_V1._0
 
         private void button11_Click(object sender, EventArgs e)
         {
-            string line;
-            string FullErrorLine = "";
-            Process p = new Process();
 
+            string outputSTD = Legendary("auth --delete");            
 
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.FileName = "Legendary.exe";
-            string arguments = "auth --delete";
-            p.StartInfo.Arguments = arguments;
-            p.Start();
-            StreamReader myStreamReader = p.StandardError;
-
-            while ((line = myStreamReader.ReadLine()) != null)
-            {
-                FullErrorLine = FullErrorLine + line;
-            }
-
-            if (FullErrorLine.Contains("User data deleted"))
+            if (outputSTD.Contains("User data deleted"))
             {
                 listBox_Usernames.Items.Clear();
-                MessageBox.Show("User deleted succesfully..."); 
+                MessageBox.Show("User deleted succesfully...");
             }
-            p.WaitForExit();
+ 
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenBrowser("https://github.com/derrod");
         }
     }
 }

@@ -67,6 +67,8 @@
             button8 = new Button();
             textBox3 = new TextBox();
             tabPage2 = new TabPage();
+            linkLabel3 = new LinkLabel();
+            label8 = new Label();
             label6 = new Label();
             linkLabel2 = new LinkLabel();
             label5 = new Label();
@@ -465,6 +467,8 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(linkLabel3);
+            tabPage2.Controls.Add(label8);
             tabPage2.Controls.Add(label6);
             tabPage2.Controls.Add(linkLabel2);
             tabPage2.Controls.Add(label5);
@@ -477,11 +481,33 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Credits";
             tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Click += tabPage2_Click;
+            // 
+            // linkLabel3
+            // 
+            linkLabel3.AutoSize = true;
+            linkLabel3.Location = new Point(182, 65);
+            linkLabel3.Name = "linkLabel3";
+            linkLabel3.Size = new Size(43, 15);
+            linkLabel3.TabIndex = 7;
+            linkLabel3.TabStop = true;
+            linkLabel3.Text = "Github";
+            linkLabel3.LinkClicked += linkLabel3_LinkClicked_1;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(9, 65);
+            label8.Name = "label8";
+            label8.Size = new Size(175, 15);
+            label8.TabIndex = 6;
+            label8.Text = "Derrod for Legenday Launcher -";
+            label8.Click += label8_Click;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(38, 54);
+            label6.Location = new Point(9, 39);
             label6.Name = "label6";
             label6.Size = new Size(71, 15);
             label6.TabIndex = 4;
@@ -490,7 +516,7 @@
             // linkLabel2
             // 
             linkLabel2.AutoSize = true;
-            linkLabel2.Location = new Point(107, 54);
+            linkLabel2.Location = new Point(78, 39);
             linkLabel2.Name = "linkLabel2";
             linkLabel2.Size = new Size(43, 15);
             linkLabel2.TabIndex = 3;
@@ -501,7 +527,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(89, 30);
+            label5.Location = new Point(245, 13);
             label5.Name = "label5";
             label5.Size = new Size(76, 15);
             label5.TabIndex = 2;
@@ -510,7 +536,7 @@
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
-            linkLabel1.Location = new Point(198, 15);
+            linkLabel1.Location = new Point(169, 13);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(43, 15);
             linkLabel1.TabIndex = 1;
@@ -521,11 +547,11 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(38, 15);
+            label2.Location = new Point(9, 13);
             label2.Name = "label2";
-            label2.Size = new Size(154, 15);
+            label2.Size = new Size(159, 15);
             label2.TabIndex = 0;
-            label2.Text = "Marlburrow for RL Marlbot: ";
+            label2.Text = "Marlburrow for RL Marlbot: -";
             // 
             // button3
             // 
@@ -618,5 +644,7 @@
         private Button button11;
         private ListBox listBox_Usernames;
         private RichTextBox richTextBox3;
+        private Label label8;
+        private LinkLabel linkLabel3;
     }
 }
