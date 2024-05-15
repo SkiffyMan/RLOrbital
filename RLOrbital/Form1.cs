@@ -17,13 +17,45 @@ namespace Orbital_V1._0
     {
 
 
-        //  private static Dictionary<string, MyProcess> _processes;
         public Form1()
         {
             InitializeComponent();
+
         }
 
-        //Process testProcess;
+        private bool ToggleKeySetLoad()
+        {
+            int index = -1;
+            string currentToggleKey = GetToggleKey();
+            foreach (var item in comboBox_ToggleKeys.Items)
+            {
+                index += 1;
+                string _item = item.ToString();
+                if (_item == currentToggleKey)
+                {
+                    comboBox_ToggleKeys.SelectedIndex = index;
+                    return true;
+                }
+            }
+            return false;
+
+        }
+        private string GetToggleKey()
+        {
+            string JsonConfig = System.IO.File.ReadAllText("config.json");
+
+            Regex key = new Regex("\"bot_toggle_key\": \"(.*)\",");
+            var match = key.Match(JsonConfig);
+            if (match.Success)
+            {
+                string ToggleKey = match.Groups[1].Value;
+               // MessageBox.Show(ToggleKey);
+                return ToggleKey;
+            }
+            return "";
+
+
+        }
 
         private void OpenBrowser(string link)
         {
@@ -294,7 +326,7 @@ namespace Orbital_V1._0
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenBrowser("https://github.com/MarlBurroW");
-           
+
 
         }
 
@@ -340,7 +372,7 @@ namespace Orbital_V1._0
 
         {
             OpenBrowser("https://github.com/SkiffyMan");
-              
+
         }
 
         private bool KillCurrentBot(string pid)
@@ -451,7 +483,7 @@ namespace Orbital_V1._0
         {
 
             string outputSTD = Legendary("list");
-            if(outputSTD.Contains("No saved credentials"))
+            if (outputSTD.Contains("No saved credentials"))
             {
                 MessageBox.Show("No Authenthicated accounts!");
             }
@@ -493,7 +525,7 @@ namespace Orbital_V1._0
             }
             else
             {
-                MessageBox.Show(string.Format("Launching Rocket League for account: {0}", GetUserAccount()) +"\n" +"If you'd like to start another instance with another account. Press Delete Account, and then Add Account, and then launch.");
+                MessageBox.Show(string.Format("Launching Rocket League for account: {0}", GetUserAccount()) + "\n" + "If you'd like to start another instance with another account. Press Delete Account, and then Add Account, and then launch.");
             }
         }
 
@@ -568,14 +600,14 @@ namespace Orbital_V1._0
         private void button11_Click(object sender, EventArgs e)
         {
 
-            string outputSTD = Legendary("auth --delete");            
+            string outputSTD = Legendary("auth --delete");
 
             if (outputSTD.Contains("User data deleted"))
             {
                 listBox_Usernames.Items.Clear();
                 MessageBox.Show("User deleted succesfully...");
             }
- 
+
         }
 
         private void tabPage2_Click(object sender, EventArgs e)
@@ -591,6 +623,42 @@ namespace Orbital_V1._0
         private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenBrowser("https://github.com/derrod");
+        }
+
+
+        private void SetToggleKey(string newKey)
+        {
+            string oldKey = GetToggleKey();
+            string text = System.IO.File.ReadAllText("config.json");
+            text = text.Replace(oldKey, newKey);
+            System.IO.File.WriteAllText("config.json", text);
+
+        }
+        private void button9_Click_1(object sender, EventArgs e)
+        {
+            //ToggleKey();
+        }
+
+        private void comboBox_ToggleKeys_SelectedIndexChanged(object sender, EventArgs e)
+
+        {
+            int index = comboBox_ToggleKeys.SelectedIndex;
+            string _Key = comboBox_ToggleKeys.Items[index].ToString();
+            if (GetToggleKey() == _Key) //Keybind is already set to selected Key
+            {
+                //MessageBox.Show("This is already set keybind!");
+                //pass this function 
+            }
+            else
+            {
+                SetToggleKey(_Key);
+            }
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ToggleKeySetLoad();
         }
     }
 }

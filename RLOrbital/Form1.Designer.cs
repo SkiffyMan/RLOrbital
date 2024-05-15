@@ -31,7 +31,9 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            label9 = new Label();
             listBox_BotPid = new ListBox();
+            comboBox_ToggleKeys = new ComboBox();
             button_StopBot = new Button();
             button7 = new Button();
             textBox2 = new TextBox();
@@ -97,7 +99,9 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label9);
             tabPage1.Controls.Add(listBox_BotPid);
+            tabPage1.Controls.Add(comboBox_ToggleKeys);
             tabPage1.Controls.Add(button_StopBot);
             tabPage1.Controls.Add(button7);
             tabPage1.Controls.Add(textBox2);
@@ -123,6 +127,15 @@
             tabPage1.Text = "Main";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(211, 12);
+            label9.Name = "label9";
+            label9.Size = new Size(64, 15);
+            label9.TabIndex = 26;
+            label9.Text = "Toggle Key";
+            // 
             // listBox_BotPid
             // 
             listBox_BotPid.FormattingEnabled = true;
@@ -132,6 +145,18 @@
             listBox_BotPid.Name = "listBox_BotPid";
             listBox_BotPid.Size = new Size(98, 79);
             listBox_BotPid.TabIndex = 24;
+            // 
+            // comboBox_ToggleKeys
+            // 
+            comboBox_ToggleKeys.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_ToggleKeys.DropDownWidth = 150;
+            comboBox_ToggleKeys.FormattingEnabled = true;
+            comboBox_ToggleKeys.Items.AddRange(new object[] { "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Escape", "SpaceBar", "PageUp", "PageDown", "End", "Home", "Insert", "Delete", "LeftShift", "RightShift", "LeftControl", "RightControl", "LeftAlt", "RightAlt", "LeftCommand", "RightCommand", "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "LeftMouseButton", "RightMouseButton", "MiddleMouseButton", "ThumbMouseButton", "ThumbMouseButton2" });
+            comboBox_ToggleKeys.Location = new Point(178, 30);
+            comboBox_ToggleKeys.Name = "comboBox_ToggleKeys";
+            comboBox_ToggleKeys.Size = new Size(131, 23);
+            comboBox_ToggleKeys.TabIndex = 25;
+            comboBox_ToggleKeys.SelectedIndexChanged += comboBox_ToggleKeys_SelectedIndexChanged;
             // 
             // button_StopBot
             // 
@@ -230,9 +255,9 @@
             checkBox_SpeedFlip.AutoSize = true;
             checkBox_SpeedFlip.Location = new Point(3, 3);
             checkBox_SpeedFlip.Name = "checkBox_SpeedFlip";
-            checkBox_SpeedFlip.Size = new Size(125, 19);
+            checkBox_SpeedFlip.Size = new Size(117, 19);
             checkBox_SpeedFlip.TabIndex = 4;
-            checkBox_SpeedFlip.Text = "Speed Flip Kick Off";
+            checkBox_SpeedFlip.Text = "SpeedFlip Kickoff";
             checkBox_SpeedFlip.UseVisualStyleBackColor = true;
             // 
             // checkBox_Debugger
@@ -287,7 +312,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(95, 201);
+            button1.Location = new Point(94, 201);
             button1.Name = "button1";
             button1.Size = new Size(131, 24);
             button1.TabIndex = 2;
@@ -327,7 +352,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(130, 12);
+            label3.Location = new Point(51, 12);
             label3.Name = "label3";
             label3.Size = new Size(59, 15);
             label3.TabIndex = 6;
@@ -338,7 +363,7 @@
             comboBotSelection.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBotSelection.FormattingEnabled = true;
             comboBotSelection.Items.AddRange(new object[] { "Nexto", "Necto", "Element", "Seer V4" });
-            comboBotSelection.Location = new Point(95, 30);
+            comboBotSelection.Location = new Point(19, 30);
             comboBotSelection.Name = "comboBotSelection";
             comboBotSelection.Size = new Size(131, 23);
             comboBotSelection.TabIndex = 5;
@@ -583,7 +608,8 @@
             MaximizeBox = false;
             Name = "Form1";
             RightToLeft = RightToLeft.No;
-            Text = "Orbital V1.0.5";
+            Text = "Orbital V1.0.6";
+            Load += Form1_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
@@ -646,5 +672,7 @@
         private RichTextBox richTextBox3;
         private Label label8;
         private LinkLabel linkLabel3;
+        private Label label9;
+        private ComboBox comboBox_ToggleKeys;
     }
 }
