@@ -1,6 +1,7 @@
 Orbital is a GUI for MarlBot. This was made as an all-in-one tool to launch and manage multiple instances of MarlBot in a easy to use and time efficient way.
 
-![yes2](https://github.com/SkiffyMan/RLOrbital/assets/169090800/0509303d-93ee-466e-bf1a-70f2b9e63d6e)
+
+![Orbital V1 0 6](https://github.com/SkiffyMan/RLOrbital/assets/169090800/0005d51f-9503-4c2e-87e1-2bcc05230b1d)
 
 
 ⚠️⚠️⚠️ RLMarlbot is designed to facilitate the use of bots in private matches with your friends without the need for RLBot. It should be used primarily for testing and debugging by botmakers. However, this tool employs advanced reverse engineering techniques that could legitimately be considered cheating by the game's standards. I strongly advise against using RLMarlbot in ranked or casual matches. Your Rocket League account is likely to be banned quickly if you violate this rule.
@@ -13,10 +14,9 @@ Run RLOrbital.exe
 Step 3:
 Select Process and Arguments
 Step 4:
-Press start bot
-step 5: 
-Press F1 in game.
-
+Press start bot (This may take a while)
+Step 5: 
+Press ToggleKey In game. Default is F1.
 
 
 [+] If you need multiple Instances there is a launcher included that allows for this. For more than 1 instance, press Add Account, and after you have launched successfully, press Delete Account. Repeat Until you have all the Rocket League processes that you need. [+]
@@ -30,5 +30,5 @@ Credits to MarlBurrow for Marlbot
 https://github.com/MarlBurroW
 
 
-Credits to Derror for Legendary Launcher
+Credits to Derrod for Legendary Launcher
 [https://github.com/derrod/legendary](https://github.com/derrod)
