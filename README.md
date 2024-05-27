@@ -1,4 +1,4 @@
-Orbital is a GUI for MarlBot. This was made as an all-in-one tool to launch and manage multiple instances of MarlBot in a easy to use and time efficient way.
+Orbital is a unofficial GUI for MarlBot. This was made as an all-in-one tool to launch and manage multiple instances of MarlBot in a easy to use and time efficient way.
 
 
 ![Orbital V1 0 6](https://github.com/SkiffyMan/RLOrbital/assets/169090800/0005d51f-9503-4c2e-87e1-2bcc05230b1d)
@@ -10,10 +10,12 @@ How to use?
 Step 1:
 Extract Winrar
 Step 2:
-Run RLOrbital.exe
+Add Marlbot in directory as "Bot.exe"
 Step 3:
-Select Process and Arguments
+Run RLOrbital.exe
 Step 4:
+Select Process and Arguments
+Step 5:
 Press start bot (This may take a while)
 Step 5: 
 Press ToggleKey In game. Default is F1.
@@ -29,6 +31,8 @@ Press ToggleKey In game. Default is F1.
 Credits to MarlBurrow for Marlbot
 https://github.com/MarlBurroW
 
-
 Credits to Derrod for Legendary Launcher
 [https://github.com/derrod/legendary](https://github.com/derrod)
+
+Credits to Xen for XenMortal
+https://github.com/xenmods
