@@ -69,6 +69,8 @@
             button8 = new Button();
             textBox3 = new TextBox();
             tabPage2 = new TabPage();
+            linkLabel4 = new LinkLabel();
+            label10 = new Label();
             linkLabel3 = new LinkLabel();
             label8 = new Label();
             label6 = new Label();
@@ -362,7 +364,7 @@
             // 
             comboBotSelection.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBotSelection.FormattingEnabled = true;
-            comboBotSelection.Items.AddRange(new object[] { "Nexto", "Necto", "Element", "Seer V4" });
+            comboBotSelection.Items.AddRange(new object[] { "Nexto", "NextMortal", "Necto", "Element", "Seer V4" });
             comboBotSelection.Location = new Point(19, 30);
             comboBotSelection.Name = "comboBotSelection";
             comboBotSelection.Size = new Size(131, 23);
@@ -492,6 +494,8 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(linkLabel4);
+            tabPage2.Controls.Add(label10);
             tabPage2.Controls.Add(linkLabel3);
             tabPage2.Controls.Add(label8);
             tabPage2.Controls.Add(label6);
@@ -507,6 +511,26 @@
             tabPage2.Text = "Credits";
             tabPage2.UseVisualStyleBackColor = true;
             tabPage2.Click += tabPage2_Click;
+            // 
+            // linkLabel4
+            // 
+            linkLabel4.AutoSize = true;
+            linkLabel4.Location = new Point(124, 90);
+            linkLabel4.Name = "linkLabel4";
+            linkLabel4.Size = new Size(45, 15);
+            linkLabel4.TabIndex = 9;
+            linkLabel4.TabStop = true;
+            linkLabel4.Text = "GitHub";
+            linkLabel4.LinkClicked += linkLabel4_LinkClicked;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(9, 90);
+            label10.Name = "label10";
+            label10.Size = new Size(119, 15);
+            label10.TabIndex = 8;
+            label10.Text = "Xen for NextMortal - ";
             // 
             // linkLabel3
             // 
@@ -674,5 +698,7 @@
         private LinkLabel linkLabel3;
         private Label label9;
         private ComboBox comboBox_ToggleKeys;
+        private LinkLabel linkLabel4;
+        private Label label10;
     }
 }

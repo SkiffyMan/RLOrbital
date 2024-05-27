@@ -49,7 +49,7 @@ namespace Orbital_V1._0
             if (match.Success)
             {
                 string ToggleKey = match.Groups[1].Value;
-               // MessageBox.Show(ToggleKey);
+                // MessageBox.Show(ToggleKey);
                 return ToggleKey;
             }
             return "";
@@ -263,16 +263,21 @@ namespace Orbital_V1._0
             }
             else if (comboBotSelection.SelectedIndex == 1)
             {
-                botSelection = " -b necto";
+                botSelection = " -b nextmortal";
             }
             else if (comboBotSelection.SelectedIndex == 2)
             {
-                botSelection = " -b element";
+                botSelection = " -b necto";
             }
             else if (comboBotSelection.SelectedIndex == 3)
             {
+                botSelection = " -b element";
+            }
+            else if (comboBotSelection.SelectedIndex == 4)
+            {
                 botSelection = " -b seer";
             }
+
 
 
             //Inject BakkesMod
@@ -659,6 +664,11 @@ namespace Orbital_V1._0
         private void Form1_Load(object sender, EventArgs e)
         {
             ToggleKeySetLoad();
+        }
+
+        private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenBrowser("https://github.com/xenmods");
         }
     }
 }
