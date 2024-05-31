@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            button9 = new Button();
             label9 = new Label();
             listBox_BotPid = new ListBox();
             comboBox_ToggleKeys = new ComboBox();
@@ -102,7 +101,6 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(button9);
             tabPage1.Controls.Add(label9);
             tabPage1.Controls.Add(listBox_BotPid);
             tabPage1.Controls.Add(comboBox_ToggleKeys);
@@ -130,16 +128,6 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Main";
             tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            button9.Location = new Point(144, 280);
-            button9.Name = "button9";
-            button9.Size = new Size(75, 23);
-            button9.TabIndex = 27;
-            button9.Text = "button9";
-            button9.UseVisualStyleBackColor = true;
-            button9.Click += button9_Click_2;
             // 
             // label9
             // 
@@ -712,6 +700,5 @@
         private ComboBox comboBox_ToggleKeys;
         private LinkLabel linkLabel4;
         private Label label10;
-        private Button button9;
     }
 }

@@ -491,7 +491,6 @@ namespace Orbital_V1._0
                 //MessageBox.Show(Convert.ToString(z));
                 return "";
             }
-            return "";
 
         }
         private void button9_Click(object sender, EventArgs e)
@@ -511,8 +510,7 @@ namespace Orbital_V1._0
 
             if (outputSTD.Contains("User data deleted"))
             {
-               // listBox_Usernames.Items.Clear();
-               // MessageBox.Show("User deleted succesfully...");
+
             }
         }
         private void button10_Click(object sender, EventArgs e)
@@ -536,24 +534,22 @@ namespace Orbital_V1._0
                 MessageBox.Show("API Rate Limited... Try again later");
                 return;
             }
+            /*
             if (outputSTD.Contains("switch to a different account"))
             {
+                //useless function as it will never happen now
                 string _username = GetUserAccount();
                 listBox_Usernames.Items.Add(_username);
                 MessageBox.Show(string.Format("{0} Account is Authed. Ready To Launch.", _username));
             }
+            */
             listBox_Usernames.Items.Add(GetUserAccount());
             AmountOfAccounts = AmountOfAccounts += 1;
             string _temp = AmountOfAccounts.ToString();
             string path1 = path + string.Format(@"Account{0}.json", _temp);
             System.IO.File.Copy(LegendaryUserDirectory, path1);
 
-            //we just assume it went well
-
-
-            // string username = GetUserAccount();
-            // listBox_Usernames.Items.Add(username);
-            //MessageBox.Show(string.Format("{0} Account is Authed. Ready To Launch.", username));
+ 
 
         }
 
@@ -581,9 +577,7 @@ namespace Orbital_V1._0
                 string SelectedIndexSTR = SelectedIndex.ToString();
                 string path1 = string.Format("{0}Account{1}.json", path, SelectedIndexSTR);
 
-
                 string Config = System.IO.File.ReadAllText(path1);
-                //  System.IO.File.Copy(path1, LegendaryUserDirectory); //we cant copy because it already exists and file.replace makes a backup
                 System.IO.File.WriteAllText(LegendaryUserDirectory, String.Empty);
                 System.IO.File.WriteAllText(LegendaryUserDirectory, Config);
 
@@ -597,7 +591,7 @@ namespace Orbital_V1._0
             }
             else
             {
-                MessageBox.Show(string.Format("Launching Rocket League for account: {0}", GetUserAccount()) + "\n" + "If you'd like to start another instance with another account. Press Delete Account, and then Add Account, and then launch.");
+                MessageBox.Show(string.Format("Launching Rocket League for account: {0}", GetUserAccount()));
             }
         }
 
@@ -672,8 +666,6 @@ namespace Orbital_V1._0
         private void button11_Click(object sender, EventArgs e)
         {
             int SelectedIndex = listBox_Usernames.SelectedIndex;
-
-
             string _path = Directory.GetCurrentDirectory();
             string path = _path + "/Accounts/";
             int AmountOfAccounts = Directory.GetFiles(path).Length;
@@ -690,16 +682,6 @@ namespace Orbital_V1._0
 
             listBox_Usernames.Items.RemoveAt(listBox_Usernames.SelectedIndex);
 
-
-            /*
-            string outputSTD = Legendary("auth --delete");
-
-            if (outputSTD.Contains("User data deleted"))
-            {
-                listBox_Usernames.Items.Clear();
-                MessageBox.Show("User deleted succesfully...");
-            }
-            */
 
         }
 
@@ -737,6 +719,7 @@ namespace Orbital_V1._0
         {
             int index = comboBox_ToggleKeys.SelectedIndex;
             string _Key = comboBox_ToggleKeys.Items[index].ToString();
+
             if (GetToggleKey() == _Key) //Keybind is already set to selected Key
             {
                 //MessageBox.Show("This is already set keybind!");
@@ -749,18 +732,6 @@ namespace Orbital_V1._0
 
         }
 
-        private bool CheckForAccounts()
-        {
-            return true;
-            /*
-            string _username = GetUserAccount();
-            if (_username.Length > 2)
-            {
-                listBox_Usernames.Items.Add(_username);
-            }
-            return true;
-            */
-        }
         private string ExtractUserInfo(string file)
         {
              string text = System.IO.File.ReadAllText(file);
@@ -777,20 +748,15 @@ namespace Orbital_V1._0
         {
             ToggleKeySetLoad();
 
-
-
-
-            //GET ALL USER ACCOUNTS
+            //GET AND LOAD ALL USER ACCOUNTS
             int loop = 0;
-
             string _path = Directory.GetCurrentDirectory();
             string path = _path + "/Accounts/";
-            //string User = GetUserAccount();
+            int AmountOfAccounts = Directory.GetFiles(path).Length;
+
 
             string userName = Environment.UserName;
             string LegendaryUserDirectory = string.Format("C:\\Users\\{0}\\.config\\legendary\\user.json", userName);
-
-            int AmountOfAccounts = Directory.GetFiles(path).Length;
 
             if(AmountOfAccounts > 0)
             {
@@ -802,42 +768,6 @@ namespace Orbital_V1._0
                     listBox_Usernames.Items.Add(ExtractUserInfo(path1));
                 }    
             }
-
-
-            //MessageBox.Show(AmountOfAccounts.ToString());
-
-            /*
-            if (User.Length > 2)
-            {
-                if(AccountsDirCheck() == true)
-                {
-
-                    DialogResult response = MessageBox.Show(string.Format("{0} Account was found. Would you like to add?",User),
-                                            "Account Present", MessageBoxButtons.YesNo);
-                    if (response == DialogResult.Yes)
-                    {
-
-                        path = path + "Account1.json";
-                        System.IO.File.Copy(LegendaryUserDirectory, path);
-                    }
-                    else
-                    {
-                        return;
-                    }
-
-                 }
-            else
-                {
-                    while(loop != AmountOfAccounts)
-                    {
-                        loop += 1;
-                        MessageBox.Show("executing function");
-                        string _loop = loop.ToString();
-                        string path1 = string.Format("{0}/Account{1}.json", path, _loop);
-                        listBox_Usernames.Items.Add(ExtractUserInfo(path1));
-                    }
-                }
-            */
             
         }
 
