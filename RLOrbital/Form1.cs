@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static System.Net.WebRequestMethods;
@@ -16,7 +17,7 @@ namespace Orbital_V1._0
     public partial class Form1 : Form
     {
 
-
+        public string version = "1.0.8";
         public Form1()
         {
             InitializeComponent();
@@ -746,6 +747,38 @@ namespace Orbital_V1._0
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Check for Updates
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    string htmlCode = client.DownloadString("https://raw.githubusercontent.com/SkiffyMan/OrbitalUpdater.github.io/main/version.txt");
+           
+                    if(htmlCode == version)
+                    {
+                        
+                    }
+                    else
+                    {
+                       DialogResult response = MessageBox.Show("New update is available. Would you like to update?",
+                      "Update found", MessageBoxButtons.YesNo);
+                        if (response == DialogResult.Yes)
+                        {
+                            OpenBrowser("https://github.com/SkiffyMan/RLOrbital/releases");
+                        }
+                        
+                    }
+                }
+                
+            }
+            catch(Exception z)
+            {
+                MessageBox.Show("Failed to check for updates....");
+            }
+
+
+
+
             ToggleKeySetLoad();
 
             //GET AND LOAD ALL USER ACCOUNTS
