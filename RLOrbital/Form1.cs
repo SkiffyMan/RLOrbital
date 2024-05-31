@@ -560,7 +560,7 @@ namespace Orbital_V1._0
 
             string _path = Directory.GetCurrentDirectory();
             string path = _path + "/Accounts/";
-            string User = GetUserAccount();
+            //string User = GetUserAccount();
 
             string userName = Environment.UserName;
             string LegendaryUserDirectory = string.Format("C:\\Users\\{0}\\.config\\legendary\\user.json", userName);
@@ -576,17 +576,16 @@ namespace Orbital_V1._0
             {
                 SelectedIndex = SelectedIndex += 1;
                 string SelectedIndexSTR = SelectedIndex.ToString();
-                //   MessageBox.Show(SelectedIndexSTR);
+
 
                 string path1 = string.Format("{0}Account{1}.json", path, SelectedIndexSTR);
-                //     MessageBox.Show(path1);
                 string Config = System.IO.File.ReadAllText(path1);
-                // MessageBox.Show(Config);
                 System.IO.File.WriteAllText(LegendaryUserDirectory, String.Empty);
                 System.IO.File.WriteAllText(LegendaryUserDirectory, Config);
 
             }
 
+            //System.Threading.Thread.Sleep(5000);
             string outputSTD = Legendary("launch sugar --skip-version-check");
 
             if (outputSTD.Contains("No saved credentials"))
@@ -791,14 +790,21 @@ namespace Orbital_V1._0
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Check for Updates
+            //Check for Updates 
             try
             {
                 using (WebClient client = new WebClient())
                 {
                     string htmlCode = client.DownloadString("https://raw.githubusercontent.com/SkiffyMan/OrbitalUpdater.github.io/main/version.txt");
+                    /*
+                    MessageBox.Show(htmlCode.ToLower());
+                    MessageBox.Show(version.ToLower());
+                    htmlCode = htmlCode.ToLower();
+                    version = version.ToLower();
+                    
+                    */
 
-                    if (htmlCode == version)
+                    if (htmlCode.Contains(version)) //Took ages to find this Updater bug I want to cry
                     {
 
                     }
