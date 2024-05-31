@@ -17,16 +17,16 @@ Step 4:
 Select Process and Arguments
 Step 5:
 Press start bot (This may take a while)
-Step 5: 
+Step 6: 
 Press ToggleKey In game. Default is F1.
 
 
-[+] If you need multiple Instances there is a launcher included that allows for this. For more than 1 instance, press Add Account, and after you have launched successfully, press Delete Account. Repeat Until you have all the Rocket League processes that you need. [+]
+[+] If you need multiple Rocket League instances, there is a launcher included that allows for this. [+]
 
 
 [!] I have very little time to allocate to this project, hence the obviously rushed code and basic GUI. This is basically a Proof of Concept and perhaps inspiration for people to make something more advanced. [!]
 
-[!] Credits [!]
+[+] Credits [+]
 
 Credits to MarlBurrow for Marlbot
 https://github.com/MarlBurroW
