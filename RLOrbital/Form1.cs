@@ -17,7 +17,7 @@ namespace Orbital_V1._0
     public partial class Form1 : Form
     {
 
-        public string version = "1.0.8";
+        public string version = "1.0.9";
         public Form1()
         {
             InitializeComponent();
@@ -523,7 +523,7 @@ namespace Orbital_V1._0
             string _path = Directory.GetCurrentDirectory();
             string path = _path + "/Accounts/";
             int AmountOfAccounts = Directory.GetFiles(path).Length;
-            
+
             string userName = Environment.UserName;
             string LegendaryUserDirectory = string.Format("C:\\Users\\{0}\\.config\\legendary\\user.json", userName);
 
@@ -550,7 +550,7 @@ namespace Orbital_V1._0
             string path1 = path + string.Format(@"Account{0}.json", _temp);
             System.IO.File.Copy(LegendaryUserDirectory, path1);
 
- 
+
 
         }
 
@@ -576,22 +576,31 @@ namespace Orbital_V1._0
             {
                 SelectedIndex = SelectedIndex += 1;
                 string SelectedIndexSTR = SelectedIndex.ToString();
-                string path1 = string.Format("{0}Account{1}.json", path, SelectedIndexSTR);
+                //   MessageBox.Show(SelectedIndexSTR);
 
+                string path1 = string.Format("{0}Account{1}.json", path, SelectedIndexSTR);
+                //     MessageBox.Show(path1);
                 string Config = System.IO.File.ReadAllText(path1);
+                // MessageBox.Show(Config);
                 System.IO.File.WriteAllText(LegendaryUserDirectory, String.Empty);
                 System.IO.File.WriteAllText(LegendaryUserDirectory, Config);
 
             }
-            
+
             string outputSTD = Legendary("launch sugar --skip-version-check");
 
             if (outputSTD.Contains("No saved credentials"))
             {
                 MessageBox.Show("No accounts are added. Please add an account");
             }
+            if (outputSTD.Contains("Stored credentials are no longer valid"))
+            {
+                MessageBox.Show("[-] Error: Account login token is no longer valid. Please Delete and Re-login [-]");
+                return;
+            }
             else
             {
+                //MessageBox.Show(outputSTD);
                 MessageBox.Show(string.Format("Launching Rocket League for account: {0}", GetUserAccount()));
             }
         }
@@ -664,6 +673,42 @@ namespace Orbital_V1._0
 
         }
 
+        private void UpdateAccounts()
+        {
+            /// WE NEED TO UPDATE ACCOUNTS. IF USER DELETES AN ACCOUNT WE LOSE THE INCREMENTAL VALUE Of The Account Numbers eg. 1,2,3,4.
+            /// This function searches for all Accounts then Re-names them into an incremental order. EG 1,2,3,4,5.
+            int loop = 0;
+            string _path = Directory.GetCurrentDirectory();
+            _path = _path + "/Accounts/";
+            DirectoryInfo d = new DirectoryInfo(_path);
+            FileInfo[] Files = d.GetFiles("*.json"); //Get Json Configs
+            
+
+            foreach (FileInfo file in Files)
+            {
+                loop += 1;
+                string currentFile = string.Format("{0}{1}", _path, file.Name);
+                string NewFile = string.Format("{0}Account{1}.json", _path, loop.ToString());
+                System.IO.File.Move(currentFile, NewFile);
+            }
+
+            //Now refresh usernames List. Username list may now be in the wrong order.
+            loop = 0;
+            listBox_Usernames.Items.Clear();
+
+            int AmountOfAccounts = Directory.GetFiles(_path).Length;
+            if (AmountOfAccounts > 0)
+            {
+                while (loop != AmountOfAccounts)
+                {
+                    loop += 1;
+                    string _loop = loop.ToString();
+                    string path1 = string.Format("{0}/Account{1}.json", _path, _loop);
+                    listBox_Usernames.Items.Add(ExtractUserInfo(path1));
+                }
+            }
+
+        }
         private void button11_Click(object sender, EventArgs e)
         {
             int SelectedIndex = listBox_Usernames.SelectedIndex;
@@ -680,9 +725,8 @@ namespace Orbital_V1._0
             SelectedIndex = SelectedIndex += 1;
             string Account = path + string.Format("Account{0}.json", SelectedIndex.ToString());
             System.IO.File.Delete(Account);
-
             listBox_Usernames.Items.RemoveAt(listBox_Usernames.SelectedIndex);
-
+            UpdateAccounts();
 
         }
 
@@ -735,7 +779,7 @@ namespace Orbital_V1._0
 
         private string ExtractUserInfo(string file)
         {
-             string text = System.IO.File.ReadAllText(file);
+            string text = System.IO.File.ReadAllText(file);
             Regex pattern = new Regex("\"displayName\": \"(.*)\"");
             var match = pattern.Match(text);
             if (match.Success)
@@ -753,25 +797,25 @@ namespace Orbital_V1._0
                 using (WebClient client = new WebClient())
                 {
                     string htmlCode = client.DownloadString("https://raw.githubusercontent.com/SkiffyMan/OrbitalUpdater.github.io/main/version.txt");
-           
-                    if(htmlCode == version)
+
+                    if (htmlCode == version)
                     {
-                        
+
                     }
                     else
                     {
-                       DialogResult response = MessageBox.Show("New update is available. Would you like to update?",
-                      "Update found", MessageBoxButtons.YesNo);
+                        DialogResult response = MessageBox.Show("New update is available. Would you like to update?",
+                       "Update found", MessageBoxButtons.YesNo);
                         if (response == DialogResult.Yes)
                         {
                             OpenBrowser("https://github.com/SkiffyMan/RLOrbital/releases");
                         }
-                        
+
                     }
                 }
-                
+
             }
-            catch(Exception z)
+            catch (Exception z)
             {
                 MessageBox.Show("Failed to check for updates....");
             }
@@ -791,17 +835,17 @@ namespace Orbital_V1._0
             string userName = Environment.UserName;
             string LegendaryUserDirectory = string.Format("C:\\Users\\{0}\\.config\\legendary\\user.json", userName);
 
-            if(AmountOfAccounts > 0)
+            if (AmountOfAccounts > 0)
             {
-                while(loop != AmountOfAccounts)
+                while (loop != AmountOfAccounts)
                 {
                     loop += 1;
                     string _loop = loop.ToString();
                     string path1 = string.Format("{0}/Account{1}.json", path, _loop);
                     listBox_Usernames.Items.Add(ExtractUserInfo(path1));
-                }    
+                }
             }
-            
+
         }
 
         private void linkLabel4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -812,6 +856,11 @@ namespace Orbital_V1._0
         private void button9_Click_2(object sender, EventArgs e)
         {
 
+        }
+
+        private void button9_Click_3(object sender, EventArgs e)
+        {
+           
         }
     }
 }
