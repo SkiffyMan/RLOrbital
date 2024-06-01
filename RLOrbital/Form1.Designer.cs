@@ -406,7 +406,7 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Launcher";
             tabPage3.UseVisualStyleBackColor = true;
-            tabPage3.Click += tabPage3_Click;
+
             // 
             // richTextBox3
             // 
@@ -490,7 +490,7 @@
             textBox3.ReadOnly = true;
             textBox3.Size = new Size(288, 23);
             textBox3.TabIndex = 0;
-            textBox3.TextChanged += textBox3_TextChanged;
+
             // 
             // tabPage2
             // 
@@ -510,7 +510,7 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Credits";
             tabPage2.UseVisualStyleBackColor = true;
-            tabPage2.Click += tabPage2_Click;
+
             // 
             // linkLabel4
             // 
@@ -551,7 +551,7 @@
             label8.Size = new Size(175, 15);
             label8.TabIndex = 6;
             label8.Text = "Derrod for Legenday Launcher -";
-            label8.Click += label8_Click;
+
             // 
             // label6
             // 
@@ -619,7 +619,6 @@
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
-            openFileDialog1.FileOk += openFileDialog1_FileOk;
             // 
             // Form1
             // 
@@ -632,7 +631,7 @@
             MaximizeBox = false;
             Name = "Form1";
             RightToLeft = RightToLeft.No;
-            Text = "Orbital V1.0.9";
+            Text = "Orbital V1.1.0";
             Load += Form1_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);

@@ -42,7 +42,7 @@ namespace RLOrbital
             //if your reading this your cool af! :))
             IntPtr processHandle = OpenProcess(desiredAccess, 1, processToInject);
 
-            if (processHandle == INTPTR_ZERO) return false;
+            if (processHandle == INTPTR_ZERO) return false; //Not exists
 
             IntPtr loadLibraryAddress = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
 

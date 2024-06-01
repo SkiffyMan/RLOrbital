@@ -12,6 +12,18 @@ using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.LinkLabel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
+//TO DO LIST
+//Fix DLL Injector. For whatever reason the UI Bugs out when injected into multiple instances.
+//Perhaps try a different injection method. Xenos does not reproduce this bug.
+//
+
+
+//Added the following
+//--Directory will now automatically import if user has set a directory already.
+//
+
+
+
 namespace Orbital_V1._0
 {
     public partial class Form1 : Form
@@ -24,8 +36,9 @@ namespace Orbital_V1._0
 
         }
 
-        private bool ToggleKeySetLoad()
+        private bool ToggleKeySetLoad() 
         {
+            //Matches ToggleKey Found to ToggleKey ComboBox Index.
             int index = -1;
             string currentToggleKey = GetToggleKey();
             foreach (var item in comboBox_ToggleKeys.Items)
@@ -44,22 +57,19 @@ namespace Orbital_V1._0
         private string GetToggleKey()
         {
             string JsonConfig = System.IO.File.ReadAllText("config.json");
-
             Regex key = new Regex("\"bot_toggle_key\": \"(.*)\",");
             var match = key.Match(JsonConfig);
             if (match.Success)
             {
                 string ToggleKey = match.Groups[1].Value;
-                // MessageBox.Show(ToggleKey);
                 return ToggleKey;
             }
             return "";
-
-
         }
 
         private void OpenBrowser(string link)
         {
+            //Open Browser function
             Process myProcess = new Process();
             try
             {
@@ -73,13 +83,13 @@ namespace Orbital_V1._0
             }
         }
 
-        private bool CheckIfInjected() //Check if bot is running and return false or true
+        private bool CheckIfInjected() 
         {
-
+            //Check if Bot is running and return false or true
             var processes = Process.GetProcessesByName("Bot");
             foreach (var p in processes)
             {
-                return true; //Bot is open and running
+                return true; 
             }
             return false;
 
@@ -105,7 +115,6 @@ namespace Orbital_V1._0
                 string process = p.Id.ToString();
                 if (process == pid)
                 {
-                    //MessageBox.Show(process);
                     return true;
                 }
             }
@@ -113,7 +122,7 @@ namespace Orbital_V1._0
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            TimerCheckInjected.Start();
+            TimerCheckInjected.Start(); //Starts a timer that Updates Bot Running status label.
 
             //Find Process ID of Rocket League instances for Injection Arguments
             listBox_Processes.Items.Clear();
@@ -134,8 +143,8 @@ namespace Orbital_V1._0
             //Find bakkesMod Folder so we can Inject the DLL.
             string userName = Environment.UserName;
             string bakkesModDLLPath = string.Format(@"C:\Users\{0}\AppData\Roaming\bakkesmod\bakkesmod\dll\bakkesmod.dll", userName);
-            string pid = listBox_Processes.SelectedItem.ToString();
-            uint processID = Convert.ToUInt32(pid);
+            string pid = listBox_Processes.SelectedItem.ToString(); //Get PID to Inject DLL 
+            uint processID = Convert.ToUInt32(pid); //PID
             DLLInjector D1 = new DLLInjector();
 
             //If BakkesMod Not installed or not found
@@ -149,8 +158,8 @@ namespace Orbital_V1._0
                 return false;
             }
 
-
-            if (D1.injectDLL(processID, bakkesModDLLPath) == true)
+            //Inject DLL
+            if (D1.injectDLL(processID, bakkesModDLLPath) == true) 
             {
                 return true;
             }
@@ -332,15 +341,13 @@ namespace Orbital_V1._0
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenBrowser("https://github.com/MarlBurroW");
-
-
         }
 
         private void TimerCheckInjected_Tick(object sender, EventArgs e)
         {
-            //Checks if any bots are running every 10 seconds
+            //Checks if any bots are running every 10 seconds and updates Bot Status Label.
 
-            if (CheckIfInjected() == true) //Check if any bot is running
+            if (CheckIfInjected() == true) //Check if any bot is running.. 
             {
                 int BotCount = 0;
                 foreach (var listBoxItem in listBox_BotPid.Items)
@@ -447,12 +454,9 @@ namespace Orbital_V1._0
 
         }
 
-        private void tabPage3_Click(object sender, EventArgs e)
-        {
-        }
-
         private string Legendary(string args)
         {
+            //Opens Legendary.exe and returns the output from the CMD.
             string line;
             string FullErrorLine = "";
             Process p = new Process();
@@ -494,16 +498,6 @@ namespace Orbital_V1._0
             }
 
         }
-        private void button9_Click(object sender, EventArgs e)
-        {
-
-            string outputSTD = Legendary("list");
-            if (outputSTD.Contains("No saved credentials"))
-            {
-                MessageBox.Show("No Authenthicated accounts!");
-            }
-
-        }
 
         private void DeleteAccount()
         {
@@ -513,12 +507,11 @@ namespace Orbital_V1._0
             {
 
             }
+            //Dont think its possible to have any other response
         }
         private void button10_Click(object sender, EventArgs e)
         {
-            //listBox_Usernames.Items.Clear();
             DeleteAccount();
-
 
             string _path = Directory.GetCurrentDirectory();
             string path = _path + "/Accounts/";
@@ -535,23 +528,12 @@ namespace Orbital_V1._0
                 MessageBox.Show("API Rate Limited... Try again later");
                 return;
             }
-            /*
-            if (outputSTD.Contains("switch to a different account"))
-            {
-                //useless function as it will never happen now
-                string _username = GetUserAccount();
-                listBox_Usernames.Items.Add(_username);
-                MessageBox.Show(string.Format("{0} Account is Authed. Ready To Launch.", _username));
-            }
-            */
+                  
             listBox_Usernames.Items.Add(GetUserAccount());
-            AmountOfAccounts = AmountOfAccounts += 1;
+            AmountOfAccounts = AmountOfAccounts += 1; //New Account Ammount
             string _temp = AmountOfAccounts.ToString();
             string path1 = path + string.Format(@"Account{0}.json", _temp);
             System.IO.File.Copy(LegendaryUserDirectory, path1);
-
-
-
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -560,7 +542,6 @@ namespace Orbital_V1._0
 
             string _path = Directory.GetCurrentDirectory();
             string path = _path + "/Accounts/";
-            //string User = GetUserAccount();
 
             string userName = Environment.UserName;
             string LegendaryUserDirectory = string.Format("C:\\Users\\{0}\\.config\\legendary\\user.json", userName);
@@ -572,11 +553,10 @@ namespace Orbital_V1._0
                 return;
             }
 
-            else //Switch json config For Legendary
+            else //Switch Current User json config For Legendary.
             {
                 SelectedIndex = SelectedIndex += 1;
                 string SelectedIndexSTR = SelectedIndex.ToString();
-
 
                 string path1 = string.Format("{0}Account{1}.json", path, SelectedIndexSTR);
                 string Config = System.IO.File.ReadAllText(path1);
@@ -585,7 +565,6 @@ namespace Orbital_V1._0
 
             }
 
-            //System.Threading.Thread.Sleep(5000);
             string outputSTD = Legendary("launch sugar --skip-version-check");
 
             if (outputSTD.Contains("No saved credentials"))
@@ -599,16 +578,15 @@ namespace Orbital_V1._0
             }
             else
             {
-                //MessageBox.Show(outputSTD);
                 MessageBox.Show(string.Format("Launching Rocket League for account: {0}", GetUserAccount()));
             }
         }
 
         private bool ImportGame()
         {
+            //Sugar is a staticName Epic uses for RocketLeague. This will work Universally.
             string directory = System.IO.File.ReadAllText("rl.txt");
             string outputSTD = Legendary(string.Format("import Sugar {0}", directory));
-
 
             if (outputSTD.Contains("Game is already installed"))
             {
@@ -650,32 +628,22 @@ namespace Orbital_V1._0
                 folderPath = Path.GetDirectoryName(folderBrowser.FileName);
                 textBox3.Text = folderPath;
             }
-            if (System.IO.File.Exists("rl.txt"))
+            if (System.IO.File.Exists("rl.txt")) //We Overwrite original directory
             {
                 System.IO.File.WriteAllText(@"rl.txt", "");
                 System.IO.File.WriteAllText("rl.txt", folderPath);
             }
-            else
+            else //We just write
             {
                 System.IO.File.WriteAllText("rl.txt", folderPath);
             }
             ImportGame();
         }
 
-        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void UpdateAccounts()
         {
-            /// WE NEED TO UPDATE ACCOUNTS. IF USER DELETES AN ACCOUNT WE LOSE THE INCREMENTAL VALUE Of The Account Numbers eg. 1,2,3,4.
-            /// This function searches for all Accounts then Re-names them into an incremental order. EG 1,2,3,4,5.
+            /// This function searches for all Accounts within Accounts Folder, then Re-names them into an incremental order. EG 1,2,3,4,5.
+            /// This is ncessesary because when a user deletes an account we lose the proper incremental values and it would break all functions.
             int loop = 0;
             string _path = Directory.GetCurrentDirectory();
             _path = _path + "/Accounts/";
@@ -713,9 +681,8 @@ namespace Orbital_V1._0
             int SelectedIndex = listBox_Usernames.SelectedIndex;
             string _path = Directory.GetCurrentDirectory();
             string path = _path + "/Accounts/";
-            int AmountOfAccounts = Directory.GetFiles(path).Length;
 
-            if (SelectedIndex == -1)
+            if (SelectedIndex == -1) //If no account was selected.
             {
                 MessageBox.Show("No account was selected.");
                 return;
@@ -729,15 +696,6 @@ namespace Orbital_V1._0
 
         }
 
-        private void tabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -753,10 +711,7 @@ namespace Orbital_V1._0
             System.IO.File.WriteAllText("config.json", text);
 
         }
-        private void button9_Click_1(object sender, EventArgs e)
-        {
-            //ToggleKey();
-        }
+
 
         private void comboBox_ToggleKeys_SelectedIndexChanged(object sender, EventArgs e)
 
@@ -790,19 +745,19 @@ namespace Orbital_V1._0
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            //If Directory has already been set, load it.
+            if (System.IO.File.Exists("rl.txt") && new FileInfo("rl.txt").Length != 0)
+            {
+                string directory = System.IO.File.ReadAllText("rl.txt");
+                textBox3.Text = directory;
+            }
+
             //Check for Updates 
             try
             {
                 using (WebClient client = new WebClient())
                 {
                     string htmlCode = client.DownloadString("https://raw.githubusercontent.com/SkiffyMan/OrbitalUpdater.github.io/main/version.txt");
-                    /*
-                    MessageBox.Show(htmlCode.ToLower());
-                    MessageBox.Show(version.ToLower());
-                    htmlCode = htmlCode.ToLower();
-                    version = version.ToLower();
-                    
-                    */
 
                     if (htmlCode.Contains(version)) //Took ages to find this Updater bug I want to cry
                     {
@@ -826,20 +781,13 @@ namespace Orbital_V1._0
                 MessageBox.Show("Failed to check for updates....");
             }
 
-
-
-
-            ToggleKeySetLoad();
+            ToggleKeySetLoad(); //This finds & loads ToggleKey for ComboBox
 
             //GET AND LOAD ALL USER ACCOUNTS
             int loop = 0;
             string _path = Directory.GetCurrentDirectory();
             string path = _path + "/Accounts/";
             int AmountOfAccounts = Directory.GetFiles(path).Length;
-
-
-            string userName = Environment.UserName;
-            string LegendaryUserDirectory = string.Format("C:\\Users\\{0}\\.config\\legendary\\user.json", userName);
 
             if (AmountOfAccounts > 0)
             {
@@ -859,14 +807,5 @@ namespace Orbital_V1._0
             OpenBrowser("https://github.com/xenmods");
         }
 
-        private void button9_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button9_Click_3(object sender, EventArgs e)
-        {
-           
-        }
     }
 }
