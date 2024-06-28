@@ -1,38 +1,26 @@
-Orbital is a unofficial GUI for MarlBot. This was made as an all-in-one tool to launch and manage multiple instances of MarlBot in a easy to use and time efficient way.
+Orbital
+==================
+
+An Unofficial GUI tool for managing multiple instances of MarlBot, designed as an all-in-one solution for botmakers.
+
+**Version 1.0.9**
+
+⚠️ Warning: RLMarlbot is intended for testing and debugging purposes only. Using it in ranked or casual matches may result in account bans.
 
 
-![Orbital V1 0 6](https://github.com/SkiffyMan/RLOrbital/assets/169090800/0005d51f-9503-4c2e-87e1-2bcc05230b1d)
+1. Extract the WinRAR archive.
+2. Place MarlBot.exe in the directory as "Bot.exe".
+3. Run RLOrbital.exe.
+4. Select Process and Arguments.
+5. Press Start Bot (this may take a while).
+6. Press Toggle Key In-game (default is F1).
+
+[+] Launch multiple Rocket League instances using the included launcher. [+]
 
 
-⚠️⚠️⚠️ RLMarlbot is designed to facilitate the use of bots in private matches with your friends without the need for RLBot. It should be used primarily for testing and debugging by botmakers. However, this tool employs advanced reverse engineering techniques that could legitimately be considered cheating by the game's standards. I strongly advise against using RLMarlbot in ranked or casual matches. Your Rocket League account is likely to be banned quickly if you violate this rule.
-  
-How to use?
-Step 1:
-Extract Winrar
-Step 2:
-Add Marlbot in directory as "Bot.exe"
-Step 3:
-Run RLOrbital.exe
-Step 4:
-Select Process and Arguments
-Step 5:
-Press start bot (This may take a while)
-Step 6: 
-Press ToggleKey In game. Default is F1.
+[!] I have limited time to dedicate to this project, which means the code and GUI are still in their early stages. [!]
 
-
-[+] If you need multiple Rocket League instances, there is a launcher included that allows for this. [+]
-
-
-[!] I have very little time to allocate to this project, hence the obviously rushed code and basic GUI. This is basically a Proof of Concept and perhaps inspiration for people to make something more advanced. [!]
-
-[+] Credits [+]
-
-Credits to MarlBurrow for Marlbot
-https://github.com/MarlBurroW
-
-Credits to Derrod for Legendary Launcher
-[https://github.com/derrod/legendary](https://github.com/derrod)
-
-Credits to Xen for XenMortal
-https://github.com/xenmods
+Credits to:
+* MarlBurrow for MarlBot (https://github.com/MarlBurroW)
+* Derrod for Legendary Launcher (https://github.com/derrod)
+* Xen for XenMortal (https://github.com/xenmods)
