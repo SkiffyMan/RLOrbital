@@ -15,7 +15,12 @@ An Unofficial GUI tool for managing multiple instances of MarlBot, designed as a
 5. Press Start Bot (this may take a while).
 6. Press Toggle Key In-game (default is F1).
 
-[+] Launch multiple Rocket League instances using the included launcher. [+]
+**Using the Launcher**
+
+To ensure the launcher works correctly, you need to follow these steps:
+
+1. Make sure the rocket league directory you select is the correct directory. For example: D:\Username\Epic Games\rocketleague
+2. I recommend disabling 2FA on your Epic Account. You can still use 2FA if needed, but be aware it will lead to having to re-sign into your accounts much more often than without.
 
 
 [!] I have limited time to dedicate to this project, which means the code and GUI are still in their early stages. [!]
@@ -23,4 +28,4 @@ An Unofficial GUI tool for managing multiple instances of MarlBot, designed as a
 Credits to:
 * MarlBurrow for MarlBot (https://github.com/MarlBurroW)
 * Derrod for Legendary Launcher (https://github.com/derrod)
-* Xen for XenMortal (https://github.com/xenmods)
+* Xen for NextMortal (https://github.com/xenmods)
