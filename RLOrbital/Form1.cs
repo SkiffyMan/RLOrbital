@@ -656,12 +656,12 @@ namespace Orbital_V1._0
 
             if (outputSTD.Contains("Game is already installed"))
             {
-                MessageBox.Show("Game is ready. Launcher is ready.");
+                MessageBox.Show("Game is ready to launch.");
                 return true;
             }
             else if (outputSTD.Contains("has been imported"))
             {
-                MessageBox.Show("Sucesfully Imported. Launcher is ready.");
+                MessageBox.Show("Sucesfully Imported. Game is ready to launch.");
                 return true;
             }
             else if (outputSTD.Contains("please verify that the path is correct"))
@@ -669,11 +669,37 @@ namespace Orbital_V1._0
                 MessageBox.Show(@"Invalid directory selected. Make sure the directory ends with \rocketleague and or is the correct directory.");
                 return false;
             }
+            else if (outputSTD.Contains("No saved credentials"))
+            {
+                MessageBox.Show("Please sign into an account before selecting the rocket league directory.");
+                return false;
+
+            }
+            else if (outputSTD.Contains("Did not find game"))
+            {
+                MessageBox.Show("Game not installed on Epic account. Please download and install it.");
+                return false;
+            }
             return true;
+
+        }
+        private void DeleteDirectory()
+        {
+            if (System.IO.File.Exists("rl.txt"))
+            {
+                System.IO.File.Delete("rl.txt");
+                textBox3.Text = "";
+            }
 
         }
         private void button8_Click(object sender, EventArgs e)
         {
+            
+            if (listBox_Usernames.Items.Count == 0) //We cant import a game  into legendary without being signed into an active Epic games account.
+            {
+                MessageBox.Show("Please sign into an account before trying to select a directory.");
+                return;
+            }
             if (System.IO.File.Exists("rl.txt") && new FileInfo("rl.txt").Length != 0)
             {
                 DialogResult response = MessageBox.Show("Would you like to use previously found Rocket League Directory",
@@ -682,7 +708,10 @@ namespace Orbital_V1._0
                 {
                     string directory = System.IO.File.ReadAllText("rl.txt");
                     textBox3.Text = directory;
-                    ImportGame();
+                    if(ImportGame() == false)
+                    {
+                        DeleteDirectory();
+                    }
                     return;
                 }
             }
@@ -710,7 +739,10 @@ namespace Orbital_V1._0
             {
                 System.IO.File.WriteAllText("rl.txt", folderPath);
             }
-            ImportGame();
+            if (ImportGame() == false)
+            {
+                DeleteDirectory();
+            }
         }
 
         private void UpdateAccounts()
