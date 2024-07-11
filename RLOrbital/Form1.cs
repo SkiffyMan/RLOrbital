@@ -139,6 +139,45 @@ namespace Orbital_V1._0
 
         private bool InjectBakkesMod()
         {
+            /* c++ Manual Injector.
+            string userName = Environment.UserName;
+            string bakkesModDLLPath = string.Format(@"C:\Users\{0}\AppData\Roaming\bakkesmod\bakkesmod\dll\bakkesmod.dll", userName);
+            string pid = listBox_Processes.SelectedItem.ToString(); //Get PID to Inject DLL 
+            string args = string.Format(@"/dll {0} /target {1}", bakkesModDLLPath, pid);
+            
+
+            if (System.IO.File.Exists(bakkesModDLLPath))
+            {
+                string line;
+                string FullErrorLine = "";
+                Process p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true; //You should set RedirectStandardOutput to true and read output before calling WaitForExit, 
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.FileName = "DLLInjector.exe";
+                p.StartInfo.Arguments = args;
+                p.Start();
+                StreamReader myStreamReader = p.StandardOutput;
+
+                while ((line = myStreamReader.ReadLine()) != null)
+                {
+                    FullErrorLine = FullErrorLine + line;
+                }
+                p.WaitForExit();
+                //MessageBox.Show(FullErrorLine);
+                if (FullErrorLine.Contains("Injection OK"))
+                {
+                    MessageBox.Show("Success!!!");
+                    return true;
+                }
+                //MessageBox.Show(FullErrorLine);
+                //return FullErrorLine;
+            }
+            
+            return true;
+            */
+
+            
             //BakkesMod Folder is static so this will work universally for any user.
             //Find bakkesMod Folder so we can Inject the DLL.
             string userName = Environment.UserName;
@@ -167,20 +206,47 @@ namespace Orbital_V1._0
             {
                 return false;
             }
+            
 
         }
 
         static void Inject(string bot, string kickoff, string pid, string minimap, string monitoring, string debugger, string debugKeys, string clock)
         {
             //Start the exe of Marlbot with given arguments. The order of arguments does not matter.
+
+            string _path = Directory.GetCurrentDirectory();
+            string oldFileName = "Bot.exe.exe";
+            string newFileName = "Bot.exe";
+            //For the morons that literally cant use computers.
+            if (System.IO.File.Exists(oldFileName))
+            { 
+
+                System.IO.File.Move(oldFileName, newFileName);
+            }
+                
             try
             {
+                
+                //by default shell execute is true.
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = @"Bot.exe";
                 string args = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", bot, kickoff, pid, minimap, monitoring, debugger, debugKeys, clock);
                 startInfo.Arguments = args;
                 Process.Start(startInfo);
+                
+                /*
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = @"Bot.exe",
+                    Arguments = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}", bot, kickoff, pid, minimap, monitoring, debugger, debugKeys, clock),
+                    UseShellExecute = false, // Ensuring it does not use shell execute
+                    RedirectStandardOutput = false, // No need to redirect output
+                    RedirectStandardError = false, // No need to redirect error
+                    CreateNoWindow = false // 
+                };
 
+                Process.Start(startInfo);
+                */
             }
             catch (Exception ex)
             {
@@ -347,7 +413,7 @@ namespace Orbital_V1._0
         {
             //Checks if any bots are running every 10 seconds and updates Bot Status Label.
 
-            if (CheckIfInjected() == true) //Check if any bot is running.. 
+            if (CheckIfInjected() == true) 
             {
                 int BotCount = 0;
                 foreach (var listBoxItem in listBox_BotPid.Items)
@@ -590,11 +656,18 @@ namespace Orbital_V1._0
 
             if (outputSTD.Contains("Game is already installed"))
             {
-                MessageBox.Show("Game Ready...");
+                MessageBox.Show("Game is ready. Launcher is ready.");
+                return true;
             }
-            else
+            else if (outputSTD.Contains("has been imported"))
             {
-                MessageBox.Show("Succesfully Imported Rocket League...");
+                MessageBox.Show("Sucesfully Imported. Launcher is ready.");
+                return true;
+            }
+            else if (outputSTD.Contains("please verify that the path is correct"))
+            {
+                MessageBox.Show(@"Invalid directory selected. Make sure the directory ends with \rocketleague and or is the correct directory.");
+                return false;
             }
             return true;
 
