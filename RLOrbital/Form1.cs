@@ -652,7 +652,9 @@ namespace Orbital_V1._0
         {
             //Sugar is a staticName Epic uses for RocketLeague. This will work Universally.
             string directory = System.IO.File.ReadAllText("rl.txt");
-            string outputSTD = Legendary(string.Format("import Sugar {0}", directory));
+           // string outputSTD = Legendary(string.Format("import Sugar {0}", directory));
+            string outputSTD = Legendary(string.Format("import Sugar \"{0}\"", directory)); 
+   
 
             if (outputSTD.Contains("Game is already installed"))
             {
@@ -700,6 +702,7 @@ namespace Orbital_V1._0
                 MessageBox.Show("Please sign into an account before trying to select a directory.");
                 return;
             }
+            
             if (System.IO.File.Exists("rl.txt") && new FileInfo("rl.txt").Length != 0)
             {
                 DialogResult response = MessageBox.Show("Would you like to use previously found Rocket League Directory",
